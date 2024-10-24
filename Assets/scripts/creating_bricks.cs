@@ -30,7 +30,7 @@ public class creating_bricks : MonoBehaviour
 
             GameObject new_brick = Instantiate(brick, next_blocK_placement, Quaternion.identity);
             Renderer renderer = new_brick.GetComponent<Renderer>();
-            renderer.material.color = color_arr[(i/row_len) % color_arr.Length];
+            renderer.material.color = color_arr[(i/col_len) % color_arr.Length];
         }
     }
 
