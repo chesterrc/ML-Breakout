@@ -678,7 +678,7 @@ MonoBehaviour:
   y_space: 0.8
   x_start: -5.8
   y_start: 0
-  brick: {fileID: 8538666254444121862, guid: 81aa664440599074a94913ba763d821e, type: 3}
+  Brick: {fileID: 8538666254444121862, guid: 81aa664440599074a94913ba763d821e, type: 3}
 --- !u!1 &1174875808
 GameObject:
   m_ObjectHideFlags: 0
