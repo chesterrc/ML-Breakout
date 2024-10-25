@@ -14,7 +14,7 @@ public class creating_bricks : MonoBehaviour
     public int col_len, row_len;
     public float x_space, y_space;
     public float x_start, y_start;
-    public GameObject Brick;
+    public BrickHandler brick_handler;
 
     // Start is called before the first frame update
     void Start()
@@ -26,20 +26,10 @@ public class creating_bricks : MonoBehaviour
             y_start + (y_space * (i / col_len)));
 
             Vector3 next_block_placement = start_block_placement + block_spacing;
-            PlaceBrick(next_block_placement, color_arr[(i / col_len) % color_arr.Length]);
+            Color brick_color = color_arr[(i / col_len) % color_arr.Length];
+            int points_value = (i / col_len + 1) * 10;
+            brick_handler.PlaceBrick(next_block_placement, brick_color, points_value);
         }
-    }
-
-    public void PlaceBrick(Vector3 position, Color color)
-    {
-        GameObject new_brick = Instantiate(original: Brick, position, Quaternion.identity);
-        PaintBrick(new_brick, color);
-    }
-
-    public void PaintBrick(GameObject brick, Color color)
-    {
-        Renderer renderer = brick.GetComponent<Renderer>();
-        renderer.material.color = color;
     }
 
 }
