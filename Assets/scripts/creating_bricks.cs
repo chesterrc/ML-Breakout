@@ -4,10 +4,20 @@ using UnityEngine;
 
 public class creating_bricks : MonoBehaviour
 {
+    private Color[] color_arr = {
+        new Color(0.784f, 0.282f, 0.282f),
+        new Color(0.776f, 0.424f, 0.227f),
+        new Color(0.706f, 0.478f, 0.188f),
+        new Color(0.635f, 0.635f, 0.165f),
+        new Color(0.282f, 0.627f, 0.282f),
+        new Color(0.259f, 0.282f, 0.784f)
+    };
+
     public int col_len, row_len;
     public float x_space, y_space;
     public float x_start, y_start;
     public GameObject brick;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -18,7 +28,9 @@ public class creating_bricks : MonoBehaviour
 
             Vector3 next_blocK_placement = start_block_placement + block_spacing;
 
-            Instantiate(brick, next_blocK_placement, Quaternion.identity);
+            GameObject new_brick = Instantiate(brick, next_blocK_placement, Quaternion.identity);
+            Renderer renderer = new_brick.GetComponent<Renderer>();
+            renderer.material.color = color_arr[(i/col_len) % color_arr.Length];
         }
     }
 
