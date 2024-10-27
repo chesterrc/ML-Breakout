@@ -3,41 +3,52 @@ using UnityEngine;
 public class move_slider : MonoBehaviour
 {
     private Rigidbody2D rb;
-    private Vector2 direction;
-    private float thrust = 0.25f;
+    private Vector3 direction;
+    // private float thrust = 0.25f;
+    Vector2 left_bound = new Vector2(-5.50f, 0.0f);
+    Vector2 right_bound = new Vector2(5.5f, 0.0f);
+    private bool start_flag = false;
 
-    private void Awake()
-    {
+    private void Awake(){
         rb = GetComponent<Rigidbody2D>();
     }
-
     private void Start()
     {
-        rb.velocity = Vector2.zero;
+        rb.velocity = Vector3.zero;
     }
 
     private void Update()
     {
-        if (Input.GetKey(KeyCode.LeftArrow))
-        {
-            Debug.Log("Player input LEFT detected.");
-            direction = Vector2.left;
-        } else if (Input.GetKey(KeyCode.RightArrow))
-        {
-            Debug.Log("Player input RIGHT detected.");
-            direction = Vector2.right;
-        } else
-        {
-            direction = Vector2.zero;
+        Vector2 obj_position = rb.position;
+
+        // Slider will only move when the game starts
+        if (Input.GetKeyUp(KeyCode.Space) && start_flag == false){
+            start_flag = true;
+        }
+
+        if (start_flag){
+            if (Input.GetKey(KeyCode.LeftArrow) &&
+            obj_position[0] > left_bound[0]){
+                Debug.Log("Player input LEFT detected.");
+                direction = new Vector3(-0.2f, 0.0f, 0.0f);
+                rb.transform.Translate(direction);
+            } else if (Input.GetKey(KeyCode.RightArrow) &&
+                obj_position[0] < right_bound[0]){
+                Debug.Log("Player input RIGHT detected.");
+                direction = new Vector3(0.2f, 0.0f, 0.0f);
+                rb.transform.Translate(direction);
+            }
+            direction = Vector3.zero;
+            rb.transform.Translate(direction);
         }
     }
 
-    private void FixedUpdate()
-    {
-        if (direction != Vector2.zero)
-        {
-            Debug.Log("Adding force " + (direction * thrust).ToString("F4"));
-            rb.AddForce(direction * thrust, ForceMode2D.Impulse);
-        }
-    }
+    // private void FixedUpdate()
+    // {
+    //     if (direction != Vector2.zero)
+    //     {
+    //         Debug.Log("Adding force " + (direction * thrust).ToString("F4"));
+    //         rb.AddForce(direction * thrust, ForceMode2D.Impulse);
+    //     }
+    // }
 }
