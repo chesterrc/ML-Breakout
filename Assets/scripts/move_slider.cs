@@ -42,13 +42,4 @@ public class move_slider : MonoBehaviour
             rb.transform.Translate(direction);
         }
     }
-
-    // private void FixedUpdate()
-    // {
-    //     if (direction != Vector2.zero)
-    //     {
-    //         Debug.Log("Adding force " + (direction * thrust).ToString("F4"));
-    //         rb.AddForce(direction * thrust, ForceMode2D.Impulse);
-    //     }
-    // }
 }

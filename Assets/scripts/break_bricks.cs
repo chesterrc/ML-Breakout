@@ -13,7 +13,6 @@ public class break_bricks : MonoBehaviour
     }
 
     void OnCollisionEnter2D(Collision2D collision){
-        Debug.Log("Inside on collision enter");
         Destroy(brick);
         
     }
