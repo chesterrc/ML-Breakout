@@ -19,6 +19,13 @@ public class slider_agent : Agent
         slider = GetComponent<Rigidbody2D>();
     }
 
+    public void OnCollisionEnter(Collision collision){
+
+        // if slider collides with ball reward agent
+        if(collision.gameObject.CompareTag("ball")){
+            AddReward(1.0f);
+        }
+    }
     public override void OnEpisodeBegin()
     {
         //Reset the ball at the starting position if it falls pass the slider
@@ -32,9 +39,6 @@ public class slider_agent : Agent
         //Target and Agent positions
         sensor.AddObservation(target_ball.localPosition);
         sensor.AddObservation(this.transform.localPosition);
-
-        //Agent velocity
-        sensor.AddObservation(slider.velocity.x);
     }
 
     public override void OnActionReceived(ActionBuffers actions)
@@ -49,10 +53,13 @@ public class slider_agent : Agent
         // Rewards
         float DistanceToTarget = slider.position.x - this.transform.position.x;
 
-        // Reached target
-        if (DistanceToTarget < 1.0f){
-            SetReward(1.0f);
+        
+        if (DistanceToTarget < 0.2f){
+            // Reached ball
+            AddReward(1.0f);
         }else if(target_ball.position.y < slider.position.y){
+            // Slider failed to hit ball
+            AddReward(-1.0f);
             EndEpisode();
         }
     }
