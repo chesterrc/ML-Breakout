@@ -19,10 +19,11 @@ public class creating_bricks : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Vector3 start_block_placement = new Vector3(x_start, y_start);
-        for (int i = 0; i < col_len * row_len; i++)
-        {
-            Vector3 block_spacing = new Vector3(x_space * (i % col_len),
+        Vector3 start_block_placement = new Vector3 (x_start, y_start);
+        
+        for(int i = 0; i < col_len * row_len; i++){
+            Vector3 block_spacing = new Vector3 (x_space * (i % col_len),
+
             y_start + (y_space * (i / col_len)));
 
             Vector3 next_block_placement = start_block_placement + block_spacing;

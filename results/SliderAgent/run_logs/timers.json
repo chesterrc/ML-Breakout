@@ -1,0 +1,42 @@
+{
+    "name": "root",
+    "metadata": {
+        "timer_format_version": "0.1.0",
+        "start_time_seconds": "1730324519",
+        "python_version": "3.10.12 | packaged by conda-forge | (main, Jun 23 2023, 22:34:57) [MSC v.1936 64 bit (AMD64)]",
+        "command_line_arguments": "D:\\Conda\\envs\\mlagents\\Scripts\\mlagents-learn config/slider_config.yaml --run-id=SliderAgent --force",
+        "mlagents_version": "1.1.0",
+        "mlagents_envs_version": "1.1.0",
+        "communication_protocol_version": "1.5.0",
+        "pytorch_version": "2.2.2+cu121",
+        "numpy_version": "1.23.5",
+        "end_time_seconds": "1730324553"
+    },
+    "total": 33.836302699986845,
+    "count": 1,
+    "self": 0.016848500003106892,
+    "children": {
+        "run_training.setup": {
+            "total": 0.19745639996835962,
+            "count": 1,
+            "self": 0.19745639996835962
+        },
+        "TrainerController.start_learning": {
+            "total": 33.62199780001538,
+            "count": 1,
+            "self": 0.000174800050444901,
+            "children": {
+                "TrainerController._reset_env": {
+                    "total": 33.62114639999345,
+                    "count": 1,
+                    "self": 33.62114639999345
+                },
+                "TrainerController._save_models": {
+                    "total": 0.0006765999714843929,
+                    "count": 1,
+                    "self": 0.0006765999714843929
+                }
+            }
+        }
+    }
+}
