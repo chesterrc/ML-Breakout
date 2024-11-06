@@ -4,14 +4,13 @@ using UnityEngine.UI;
 public class ScoreKeeper : MonoBehaviour
 {
     public static ScoreKeeper Instance { get; private set; }
-    public int score { get; private set; }
+    public int Score { get; private set; }
 
     public Text score_text;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-        score = 0;
+        Score = 0;
         UpdateScoreText();
     }
 
@@ -22,17 +21,17 @@ public class ScoreKeeper : MonoBehaviour
 
     private void UpdateScoreText()
     {
-        score_text.text = "Score: " + score.ToString("D6");
+        score_text.text = "Score: " + Score.ToString("D6");
     }
 
     public void IncreaseScore(int points)
     {
-        score += points;
+        Score += points;
         UpdateScoreText();
     }
 
     public void Reset()
     {
-        score = 0;
+        Start();
     }
 }
