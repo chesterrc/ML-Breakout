@@ -2,7 +2,7 @@
     "name": "root",
     "metadata": {
         "timer_format_version": "0.1.0",
-        "start_time_seconds": "1730324519",
+        "start_time_seconds": "1731030620",
         "python_version": "3.10.12 | packaged by conda-forge | (main, Jun 23 2023, 22:34:57) [MSC v.1936 64 bit (AMD64)]",
         "command_line_arguments": "D:\\Conda\\envs\\mlagents\\Scripts\\mlagents-learn config/slider_config.yaml --run-id=SliderAgent --force",
         "mlagents_version": "1.1.0",
@@ -10,31 +10,31 @@
         "communication_protocol_version": "1.5.0",
         "pytorch_version": "2.2.2+cu121",
         "numpy_version": "1.23.5",
-        "end_time_seconds": "1730324553"
+        "end_time_seconds": "1731030634"
     },
-    "total": 33.836302699986845,
+    "total": 14.795556999990367,
     "count": 1,
-    "self": 0.016848500003106892,
+    "self": 0.04018199998245109,
     "children": {
         "run_training.setup": {
-            "total": 0.19745639996835962,
+            "total": 0.7382364000077359,
             "count": 1,
-            "self": 0.19745639996835962
+            "self": 0.7382364000077359
         },
         "TrainerController.start_learning": {
-            "total": 33.62199780001538,
+            "total": 14.01713860000018,
             "count": 1,
-            "self": 0.000174800050444901,
+            "self": 0.00013000000035390258,
             "children": {
                 "TrainerController._reset_env": {
-                    "total": 33.62114639999345,
+                    "total": 14.016968600000837,
                     "count": 1,
-                    "self": 33.62114639999345
+                    "self": 14.016968600000837
                 },
                 "TrainerController._save_models": {
-                    "total": 0.0006765999714843929,
+                    "total": 3.9999998989515007e-05,
                     "count": 1,
-                    "self": 0.0006765999714843929
+                    "self": 3.9999998989515007e-05
                 }
             }
         }

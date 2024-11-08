@@ -4,7 +4,6 @@ public class BrickHandler : MonoBehaviour
 {
     public GameObject Brick;
     public ScoreKeeper ScoreKeeper;
-
     public Color[] Colors { get; private set; } = {
         new Color(0.784f, 0.282f, 0.282f),
         new Color(0.776f, 0.424f, 0.227f),
