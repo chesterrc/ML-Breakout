@@ -6,6 +6,7 @@ using Unity.MLAgents.Sensors;
 using Unity.VisualScripting;
 using Unity.MLAgents.Actuators;
 using UnityEngine.SocialPlatforms.Impl;
+using Unity.Barracuda;
 
 public class slider_agent : Agent
 {
@@ -68,20 +69,20 @@ public class slider_agent : Agent
         // Debug.Log(ControlSignal);
 
         // Rewards
-        float DistanceToTarget = Mathf.Abs( slider.position.x - target_ball.position.x );
-        
+        float slider_position_x = Mathf.Abs( slider.transform.position.x);
+        float ball_position_x = Mathf.Abs( target_ball.position.x );
+        float DistanceToTarget = Mathf.Abs( slider_position_x - ball_position_x );
+        // Debug.Log(DistanceToTarget);
         // brick broke by ball
         if( collided_ball.ball_collided )
         {
             Debug.Log("<slider_agent> ball broke brick");
             collided_ball.ball_collided = false;
-            AddReward(5.0f);
+            AddReward(2.0f);
         }
-
-        if(DistanceToTarget == 0)
+        if( DistanceToTarget < 1.0f )
         {
-            // Reached ball
-            AddReward(5.0f);
+            AddReward(1.0f);
         } else if( target_ball.position.y <= bottom_border.transform.position.y)
         {
             // Slider failed to hit ball
