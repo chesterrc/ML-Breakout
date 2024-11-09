@@ -32,7 +32,7 @@ public class slider_agent : Agent
         Debug.Log("<slider_agent> entered collision");
         // if slider collides with ball reward agent
         if(collision.gameObject.CompareTag("ball")){
-            AddReward(1.0f);
+            AddReward(0.3f);
         }
     }
 
@@ -71,21 +71,31 @@ public class slider_agent : Agent
         // Rewards
         float slider_position_x = Mathf.Abs( slider.transform.position.x);
         float ball_position_x = Mathf.Abs( target_ball.position.x );
-        float DistanceToTarget = Mathf.Abs( slider_position_x - ball_position_x );
-        // Debug.Log(DistanceToTarget);
+        float distance_to_target = Mathf.Abs( slider_position_x - ball_position_x );
+        // Debug.Log( distance_to_target );
+
         // brick broke by ball
         if( collided_ball.ball_collided )
         {
             Debug.Log("<slider_agent> ball broke brick");
             collided_ball.ball_collided = false;
-            AddReward(2.0f);
+            AddReward(0.8f);
         }
-        if( DistanceToTarget < 1.0f )
+        if( distance_to_target <= 1.0f )
         {
-            AddReward(1.0f);
-        } else if( target_ball.position.y <= bottom_border.transform.position.y)
+            AddReward(0.1f);
+        }
+        
+        if( target_ball.position.y <= bottom_border.transform.position.y)
         {
             // Slider failed to hit ball
+            AddReward(-1.0f);
+            EndEpisode();
+        }
+
+        if ( LevelBuilder.brick_count == 0)
+        {
+            AddReward(1.0f);
             EndEpisode();
         }
     }

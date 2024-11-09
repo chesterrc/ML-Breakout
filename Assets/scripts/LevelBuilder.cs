@@ -14,6 +14,7 @@ public class LevelBuilder : MonoBehaviour
     public float slider_x_start = 0f, slider_y_start = -6f;
     public float slider_left_bound = -5.5f;
     public float slider_right_bound = 5.5f;
+    public int brick_count = 0;
 
     public void Build()
     {
@@ -28,6 +29,7 @@ public class LevelBuilder : MonoBehaviour
             Color brick_color = BrickHandler.Colors[(i / num_cols) % BrickHandler.Colors.Length];
             int points_value = (i / num_cols + 1) * 10;
             BrickHandler.PlaceBrick(next_block_placement, brick_color, points_value);
+            brick_count++;
         }
         StartingPositions();
     }

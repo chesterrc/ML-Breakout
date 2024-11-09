@@ -1,26 +1,4 @@
 {
-    "SliderBehavior": {
-        "checkpoints": [
-            {
-                "steps": 5004,
-                "file_path": "results\\SliderBehavior\\SliderBehavior\\SliderBehavior-5004.onnx",
-                "reward": 5.0,
-                "creation_time": 1731183687.1747005,
-                "auxillary_file_paths": [
-                    "results\\SliderBehavior\\SliderBehavior\\SliderBehavior-5004.pt"
-                ]
-            }
-        ],
-        "final_checkpoint": {
-            "steps": 5004,
-            "file_path": "results\\SliderBehavior\\SliderBehavior.onnx",
-            "reward": 5.0,
-            "creation_time": 1731183687.1747005,
-            "auxillary_file_paths": [
-                "results\\SliderBehavior\\SliderBehavior\\SliderBehavior-5004.pt"
-            ]
-        }
-    },
     "metadata": {
         "stats_format_version": "0.3.0",
         "mlagents_version": "1.1.0",

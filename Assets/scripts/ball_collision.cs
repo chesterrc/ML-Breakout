@@ -7,6 +7,8 @@ public class ball_collision : MonoBehaviour
     private Rigidbody2D ball_col;
     // Start is called before the first frame update
     public BoxCollider2D brick_collider;
+
+    public LevelBuilder LevelBuilder;
     public bool ball_collided = false;
     
     void Start()
@@ -37,8 +39,8 @@ public class ball_collision : MonoBehaviour
             ball_col.velocity = direction * currentspead;
         }
         if (collision.gameObject.CompareTag("brick"))
-        {   
-
+        {
+            LevelBuilder.brick_count--;
             ball_collided = true;
             //Get the difference in x to see if we hit the left or right side
             float halfWidth = brick_collider.size.x;
