@@ -17,7 +17,8 @@ public class slider_agent : Agent
     public Transform target_ball;
 
     public LevelBuilder LevelBuilder;
-    // public bool PlayStarted { get; private set; } = false;
+    public ball_collision collided_ball;
+
     void Start()
     {
         Debug.Log("<slider_agent> Started");
@@ -69,14 +70,12 @@ public class slider_agent : Agent
         // Rewards
         float DistanceToTarget = Mathf.Abs( slider.position.x - target_ball.position.x );
         
-        if ( slider.position.x > LevelBuilder.slider_left_bound )
+        // brick broke by ball
+        if( collided_ball.ball_collided )
         {
-            AddReward(1.0f);
-        } 
-
-        if ( slider.position.x < LevelBuilder.slider_right_bound )
-        {
-            AddReward(1.0f);
+            Debug.Log("<slider_agent> ball broke brick");
+            collided_ball.ball_collided = false;
+            AddReward(5.0f);
         }
 
         if(DistanceToTarget == 0)
@@ -86,7 +85,6 @@ public class slider_agent : Agent
         } else if( target_ball.position.y <= bottom_border.transform.position.y)
         {
             // Slider failed to hit ball
-  
             EndEpisode();
         }
     }
