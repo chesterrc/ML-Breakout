@@ -15,9 +15,11 @@ git checkout -b test/ML-Model/<--new name-->
 
 Click on the slider gameobject in the ml_training_scene. The object's components should look like this:
 
-<picture>
-![alt text](https://github.com/chesterrc/ML-Breakout/tree/test/ML-Model/stage-1/Assets/Models/Images/slider_agent.png)
-</picture>
+![alt text](Images/slider_agent.png)
+
+The Behavior Parameters component should show up in the inspector when the slider_agent script is placed inside a gameobject. If you do not have a Decision Requester, add the component by clicking "Add Component" and searching for Decision Requester.
+
+Within the Behavior Parameters the behavior name should be the same within the config file. This project only utilizes 1 continuous agent, that is because we are only moving along one axis (x axis). The space size relates to the number of observations we have. Within the script we have 2 observations that the slider is observing, however the vectors require a space size of 6.
 
 ## Running the model
 
@@ -34,7 +36,18 @@ Train the model with:
 mlagents-learn path/to/config.yaml --run-id=<NameOfRun>
 ```
 
-The model will run until the max_steps specified in the config. This was set to 5000.
+Press play within the Unity Editor. The model will run until the max_steps specified in the config. This was set to 5000.
+
+## Embedding a ML Agent into the scene
+Copy the model folder from the results folder into the Assets/Models folder
+
+```
+mv <project-root-folder/results/<model-folder> <project-root-folder>/Assets/Models
+```
+
+Drag/Add the .onnx file into the "Model" parameter under Behavior Parameters.
+
+![alt text](Images/slider_agent.png)
 
 ## Config Overview
 The config file is located at:
