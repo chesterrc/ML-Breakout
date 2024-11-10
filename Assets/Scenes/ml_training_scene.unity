@@ -528,6 +528,7 @@ MonoBehaviour:
   slider_y_start: -6
   slider_left_bound: 1.4
   slider_right_bound: 12.5
+  brick_count: 0
 --- !u!4 &824182925
 Transform:
   m_ObjectHideFlags: 0
@@ -981,6 +982,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   brick_collider: {fileID: -8200766025485946397, guid: 81aa664440599074a94913ba763d821e, type: 3}
+  LevelBuilder: {fileID: 824182924}
+  ball_collided: 0
 --- !u!58 &1468777474
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -1357,7 +1360,7 @@ MonoBehaviour:
   m_Model: {fileID: 0}
   m_InferenceDevice: 0
   m_BehaviorType: 0
-  m_BehaviorName: My Behavior
+  m_BehaviorName: SliderBehavior
   TeamId: 0
   m_UseChildSensors: 1
   m_UseChildActuators: 1
@@ -1381,6 +1384,7 @@ MonoBehaviour:
   bottom_border: {fileID: 864837977}
   target_ball: {fileID: 1468777477}
   LevelBuilder: {fileID: 824182924}
+  collided_ball: {fileID: 1468777473}
 --- !u!114 &1807889699
 MonoBehaviour:
   m_ObjectHideFlags: 0
