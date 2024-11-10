@@ -13,6 +13,12 @@ git pull test/ML-Model/stage-1
 git checkout -b test/ML-Model/<--new name-->
 ```
 
+Click on the slider gameobject in the ml_training_scene. The object's components should look like this:
+
+<picture>
+![alt text](https://github.com/chesterrc/ML-Breakout/tree/test/ML-Model/stage-1/Assets/Models/Images/slider_agent.png)
+</picture>
+
 ## Running the model
 
 To run the model, start the conda environment and navigate to the root directory of the project.

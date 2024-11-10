@@ -24,7 +24,6 @@ public class slider_agent : Agent
     {
         Debug.Log("<slider_agent> Started");
         slider = GetComponent<Rigidbody2D>();
-        // StartGame();
     }
 
     public void OnCollisionEnter(Collision collision)
