@@ -47,7 +47,7 @@ public class slider_agent : Agent
     }
 
     // The Agent class calls this function
-    // before it uses the observation vector to make a decision
+    // before it makes a decision
     public override void CollectObservations(VectorSensor sensor)
     {
         Debug.Log("<slider_agent> Obtaining observations");
@@ -57,6 +57,7 @@ public class slider_agent : Agent
         sensor.AddObservation(this.transform.localPosition);
     }
 
+    // This is called after CollectObservations
     public override void OnActionReceived(ActionBuffers actions)
     {
         Debug.Log("<slider_agent> OnActionReceived");
@@ -65,8 +66,6 @@ public class slider_agent : Agent
         Vector3 ControlSignal = Vector3.zero;
         ControlSignal.x = actions.ContinuousActions[0] * 0.2f;
         slider.transform.Translate(ControlSignal);
-        // Debug.Log("OnActionReceived");
-        // Debug.Log(ControlSignal);
 
         // Rewards
         float slider_position_x = Mathf.Abs( slider.transform.position.x);
