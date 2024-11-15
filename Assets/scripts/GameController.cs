@@ -57,6 +57,12 @@ public class GameController : MonoBehaviour
             StartGame();
         }
 
+        if (Input.GetKeyUp(KeyCode.Q))
+        { // press Q key to quit game and return to main menu
+            Debug.Log("<GameController> Game instructed to return to main menu.");
+            GameOver();
+        }
+
         if (LifeTracker.Lives == 0)
         {
             GameOver();
