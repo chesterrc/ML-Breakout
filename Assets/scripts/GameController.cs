@@ -44,7 +44,7 @@ public class GameController : MonoBehaviour
             slider_rb.position.x > LevelBuilder.slider_left_bound)
         { // press LEFT ARROW key to move slider
             Debug.Log("<GameController> Slider instructed to move LEFT.");
-            Vector3 direction = new(-0.2f, 0.0f, 0.0f);
+            Vector3 direction = new(-0.05f, 0.0f, 0.0f);
             slider_rb.transform.Translate(direction);
         }
 
@@ -52,7 +52,7 @@ public class GameController : MonoBehaviour
             slider_rb.position.x < LevelBuilder.slider_right_bound)
         { // press RIGHT ARROW key to move slider
             Debug.Log("<GameController> Slider instructed to move RIGHT.");
-            Vector3 direction = new(0.2f, 0.0f, 0.0f);
+            Vector3 direction = new(0.05f, 0.0f, 0.0f);
             slider_rb.transform.Translate(direction);
         }
 
@@ -66,6 +66,12 @@ public class GameController : MonoBehaviour
         { // press R key to reset game
             Debug.Log("<GameController> Game instructed to restart.");
             StartGame();
+        }
+
+        if (Input.GetKeyUp(KeyCode.Q))
+        { // press Q key to quit game and return to main menu
+            Debug.Log("<GameController> Game instructed to return to main menu.");
+            GameOver();
         }
 
         if (LifeTracker.Lives == 0)
