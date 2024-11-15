@@ -11,12 +11,23 @@ public class GameController : MonoBehaviour
     public BrickHandler BrickHandler;
     public GameObject Slider;
     private Rigidbody2D slider_rb;
-
+    public Scene CurrentLevel;
+    public static readonly string ScoreKey = "LevelEndScore";
+    public static readonly string LivesKey = "NumLives";
+    private int currentLives;
+    private int currentScore;
+    private int tmpScore;
+    private int tmpLives;
     public bool PlayStarted { get; private set; } = false;
+
 
     void Start()
     {
+        CurrentLevel = SceneManager.GetActiveScene();
+        
         StartGame();
+        
+        
         slider_rb = Slider.GetComponent<Rigidbody2D>();
     }
 
@@ -67,13 +78,27 @@ public class GameController : MonoBehaviour
         {
             GameOver();
         }
+
+        //This is edited for testing level progression/score/lives. Correct = if (ScoreKeeper.BrickCount == LevelBuilder.TotalBricks)
+        if (ScoreKeeper.BrickCount == 2) //LevelBuilder.TotalBricks) 
+        {
+            if (CurrentLevel.name == "level1" || CurrentLevel.name == "level2")
+            {
+                NextLevel();
+            }
+            else if (CurrentLevel.name == "level3")
+            {
+                Debug.Log("Winner");
+                GameOver();
+            }
+            
+        }
+
     }
 
     public void StartGame()
     {
         PlayStarted = false;
-        LifeTracker.Reset();
-        ScoreKeeper.Reset();
         LevelBuilder.Build();
     }
 
@@ -87,5 +112,53 @@ public class GameController : MonoBehaviour
     void GameOver()
     {
         SceneManager.LoadScene(0);
+        SaveData(0, 5);
+        
+    }
+
+    void NextLevel()
+    {
+        //loads next scene/level
+        tmpScore = ScoreKeeper.GetScore();
+        tmpLives = LifeTracker.GetLives();
+        SaveData(tmpScore, tmpLives);
+        if (CurrentLevel.name == "level1") {
+            SceneManager.LoadScene("level2");
+        }
+        if (CurrentLevel.name == "level2") 
+        {
+            SceneManager.LoadScene("level3");
+        }
+        currentLives = LoadLives();
+        LifeTracker.UpdateLives(currentLives);
+        currentScore = LoadScore();
+        ScoreKeeper.UpdateScore(currentScore);
+
+        
+    }
+
+    public static void SaveData(int score, int lives)
+    {
+        //saves score, lives to file
+        PlayerPrefs.SetInt(ScoreKey, score);
+        PlayerPrefs.SetInt(LivesKey, lives);
+        PlayerPrefs.Save();
+        Debug.Log("Score saved: " + score);
+        Debug.Log("Lives saved: " + lives);
+    }
+
+    public static int LoadScore()
+    {
+        //load score from file
+        int score = PlayerPrefs.GetInt(ScoreKey);
+        Debug.Log("Loaded score: " + score);
+        return score;
+    }
+
+    public static int LoadLives()
+    {
+        int lives = PlayerPrefs.GetInt(LivesKey);
+        Debug.Log("Loaded lives: " + lives);
+        return lives;
     }
 }

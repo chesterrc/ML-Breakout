@@ -7,6 +7,8 @@ TagManager:
   - slider
   - ball
   - brick
+  - score
+  - lives
   layers:
   - Default
   - TransparentFX

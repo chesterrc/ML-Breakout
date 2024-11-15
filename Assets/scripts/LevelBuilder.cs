@@ -6,6 +6,7 @@ public class LevelBuilder : MonoBehaviour
     public int num_cols = 12, num_rows = 8;
     public float brick_x_space = 1.05f, brick_y_space = 0.8f;
     public float brick_x_start = -5.8f, brick_y_start = 0f;
+    public int TotalBricks;
 
     public GameObject Ball;
     public float ball_x_start = 0f, ball_y_start = -4f;
@@ -29,6 +30,7 @@ public class LevelBuilder : MonoBehaviour
             int points_value = (i / num_cols + 1) * 10;
             BrickHandler.PlaceBrick(next_block_placement, brick_color, points_value);
         }
+        TotalBricks = num_cols * num_rows;
         StartingPositions();
     }
 
@@ -37,6 +39,7 @@ public class LevelBuilder : MonoBehaviour
         Vector2 ball_force = new(0, -200);
         Rigidbody2D ball_rb = Ball.GetComponent<Rigidbody2D>();
         ball_rb.AddForce(ball_force);
+        Debug.Log("LevelBuilder started play");
     }
 
     public void StartingPositions()
