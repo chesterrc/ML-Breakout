@@ -10,7 +10,6 @@ public class ball_collision : MonoBehaviour
     {
         //Cache the reference to the rigid body.
         ball_col = GetComponent<Rigidbody2D>();
-
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -30,8 +29,6 @@ public class ball_collision : MonoBehaviour
 
             float currentspead = ball_col.velocity.magnitude;
             ball_col.velocity = direction * currentspead;
-
-
         }
     }
 }
