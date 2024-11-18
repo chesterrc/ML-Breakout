@@ -14,11 +14,12 @@ public class slider_agent : Agent
     // Start is called before the first frame update
     Rigidbody2D slider;
 
-    public GameObject bottom_border;
-    public Transform target_ball;
-
+    
     public LevelBuilder LevelBuilder;
     public ball_collision collided_ball;
+    public LifeTracker life_tracker;
+    public GameObject bottom_border;
+    public Transform target_ball;
 
     void Start()
     {
@@ -42,6 +43,7 @@ public class slider_agent : Agent
 
         //Reset the ball and agent at the starting position
         LevelBuilder.StartingPositions();
+        LifeTracker.LoadLives();
         StartGame();
     }
 
@@ -63,7 +65,7 @@ public class slider_agent : Agent
 
         //Actions, size = 1 (only moving in one axis)
         Vector3 ControlSignal = Vector3.zero;
-        ControlSignal.x = actions.ContinuousActions[0] * 0.2f;
+        ControlSignal.x = actions.ContinuousActions[0] * 0.3f;
         slider.transform.Translate(ControlSignal);
 
         // Rewards
@@ -73,20 +75,36 @@ public class slider_agent : Agent
         // Debug.Log( distance_to_target );
 
         // brick broke by ball
+        if(  slider_position_x < LevelBuilder.slider_left_bound ){
+            AddReward(-0.1f);
+        }
+
+        if (slider_position_x > LevelBuilder.slider_right_bound ){
+            AddReward(-0.1f);
+        }
+
         if( collided_ball.ball_collided )
         {
             Debug.Log("<slider_agent> ball broke brick");
             collided_ball.ball_collided = false;
             AddReward(0.8f);
         }
-        if( distance_to_target <= 1.0f )
+        if( distance_to_target <= 0.8f )
         {
             AddReward(0.1f);
         }
         
-        if( target_ball.position.y <= bottom_border.transform.position.y)
+        if( target_ball.position.y <= bottom_border.transform.position.y && life_tracker.GetLives() == 0)
         {
+            Debug.Log("<slider_agent> losing life");
             // Slider failed to hit ball
+            AddReward(-.7f);
+
+            life_tracker.LoseALife();
+            LevelBuilder.StartingPositions();
+        } else if ( target_ball.position.y <= bottom_border.transform.position.y ) {
+            // no lives left
+            Debug.Log("<slider_agent> restting game");
             AddReward(-1.0f);
             EndEpisode();
         }

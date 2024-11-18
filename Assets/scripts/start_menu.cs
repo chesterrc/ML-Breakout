@@ -24,8 +24,8 @@ public class start_menu : MonoBehaviour
 
     public void start_vs()
     {
-        //TO-DO: for vs CPU scene
-
+        // starts player vs cpu game
+        SceneManager.LoadScene("versus");
         Debug.Log("Starting vs CPU mode");
     }
 
