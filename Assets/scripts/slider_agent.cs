@@ -1,12 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using Unity.MLAgents;
-using Unity.MLAgents.Sensors;
-using Unity.VisualScripting;
 using Unity.MLAgents.Actuators;
-using UnityEngine.SocialPlatforms.Impl;
-using Unity.Barracuda;
+using Unity.MLAgents.Sensors;
+using UnityEngine;
 
 public class slider_agent : Agent
 {
@@ -66,11 +61,20 @@ public class slider_agent : Agent
         ControlSignal.x = actions.ContinuousActions[0] * 0.2f;
         slider.transform.Translate(ControlSignal);
 
+        // keep slider in boundaries
+        if (slider.transform.position.x < LevelBuilder.slider_left_bound || slider.transform.position.x > LevelBuilder.slider_right_bound)
+        {
+            slider.transform.position = new Vector3(
+                Mathf.Clamp(slider.transform.position.x, LevelBuilder.slider_left_bound, LevelBuilder.slider_right_bound),
+                slider.transform.position.y,
+                slider.transform.position.z
+            );
+        }
+
         // Rewards
         float slider_position_x = Mathf.Abs( slider.transform.position.x);
         float ball_position_x = Mathf.Abs( target_ball.position.x );
         float distance_to_target = Mathf.Abs( slider_position_x - ball_position_x );
-        // Debug.Log( distance_to_target );
 
         // brick broke by ball
         if( collided_ball.ball_collided )
@@ -79,12 +83,15 @@ public class slider_agent : Agent
             collided_ball.ball_collided = false;
             AddReward(0.8f);
         }
-        if( distance_to_target <= 1.0f )
+
+        // if slider is <= 1 unit from ball, reward based on proximity of slider to ball
+        if (distance_to_target <= 1.0f)
         {
-            AddReward(0.1f);
+            float reward = Mathf.Clamp(1.0f - distance_to_target, 0.0f, 0.1f);
+            AddReward(reward);
         }
-        
-        if( target_ball.position.y <= bottom_border.transform.position.y)
+
+        if ( target_ball.position.y <= bottom_border.transform.position.y)
         {
             // Slider failed to hit ball
             AddReward(-1.0f);

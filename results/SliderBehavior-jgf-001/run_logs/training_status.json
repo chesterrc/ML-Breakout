@@ -1,0 +1,47 @@
+{
+    "SliderBehavior": {
+        "checkpoints": [
+            {
+                "steps": 8569,
+                "file_path": "results\\SliderBehavior-jgf-001\\SliderBehavior\\SliderBehavior-8569.onnx",
+                "reward": 3.7111111018392773,
+                "creation_time": 1732299907.7024288,
+                "auxillary_file_paths": [
+                    "results\\SliderBehavior-jgf-001\\SliderBehavior\\SliderBehavior-8569.pt"
+                ]
+            },
+            {
+                "steps": 27964,
+                "file_path": "results\\SliderBehavior-jgf-001\\SliderBehavior\\SliderBehavior-27964.onnx",
+                "reward": 7.562903297524298,
+                "creation_time": 1732302528.4196827,
+                "auxillary_file_paths": [
+                    "results\\SliderBehavior-jgf-001\\SliderBehavior\\SliderBehavior-27964.pt"
+                ]
+            },
+            {
+                "steps": 50219,
+                "file_path": "results\\SliderBehavior-jgf-001\\SliderBehavior\\SliderBehavior-50219.onnx",
+                "reward": 9.706250123679638,
+                "creation_time": 1732305366.151974,
+                "auxillary_file_paths": [
+                    "results\\SliderBehavior-jgf-001\\SliderBehavior\\SliderBehavior-50219.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 50219,
+            "file_path": "results\\SliderBehavior-jgf-001\\SliderBehavior.onnx",
+            "reward": 9.706250123679638,
+            "creation_time": 1732305366.151974,
+            "auxillary_file_paths": [
+                "results\\SliderBehavior-jgf-001\\SliderBehavior\\SliderBehavior-50219.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "1.1.0",
+        "torch_version": "2.2.2+cu121"
+    }
+}
