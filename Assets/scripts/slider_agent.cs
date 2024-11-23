@@ -113,13 +113,22 @@ public class slider_agent : Agent
         if (Input.GetKey(KeyCode.LeftArrow) &&
             slider.position.x > LevelBuilder.slider_left_bound){
                 
-                continuous_actions_out [0] = -1.0f;
+                continuous_actions_out [0] = -.8f;
 
-            } else if (Input.GetKey(KeyCode.RightArrow) &&
+            } 
+        else if (Input.GetKey(KeyCode.RightArrow) &&
                 slider.position.x < LevelBuilder.slider_right_bound){
                 
-                continuous_actions_out [0] = 1.0f;
+                continuous_actions_out [0] = .8f;
             }
+        else if (slider.transform.position.x < LevelBuilder.slider_left_bound || slider.transform.position.x > LevelBuilder.slider_right_bound)
+        {
+            slider.transform.position = new Vector3(
+                Mathf.Clamp(slider.transform.position.x, LevelBuilder.slider_left_bound, LevelBuilder.slider_right_bound),
+                slider.transform.position.y,
+                slider.transform.position.z
+            );
+        }
     }
 
     public void StartGame()

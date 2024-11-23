@@ -9,6 +9,7 @@ TagManager:
   - brick
   - score
   - lives
+  - bottom
   layers:
   - Default
   - TransparentFX
