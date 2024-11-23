@@ -6,24 +6,25 @@ using UnityEngine;
 public class slider_agent : Agent
 {
     public static slider_agent Instance { get; private set; }
-    // Start is called before the first frame update
-    Rigidbody2D slider;
+    private Rigidbody2D slider;
 
     public GameObject bottom_border;
     public Transform target_ball;
 
     public LevelBuilder LevelBuilder;
     public ball_collision collided_ball;
+    public int lives_per_game = 5;
+    private int lives;
 
     void Start()
     {
-        Debug.Log("<slider_agent> Started");
+        Debug.Log("<slider_agent> Training started.");
         slider = GetComponent<Rigidbody2D>();
     }
 
     public void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("<slider_agent> entered collision");
+        Debug.Log("<slider_agent> Slider hit ball.");
         // if slider collides with ball reward agent
         if(collision.gameObject.CompareTag("ball")){
             AddReward(0.3f);
@@ -35,16 +36,18 @@ public class slider_agent : Agent
     {
         Debug.Log("<slider_agent> New Episode Starting");
 
-        //Reset the ball and agent at the starting position
-        LevelBuilder.StartingPositions();
-        StartGame();
+        // start new game:
+        lives = lives_per_game;            // reset lives to max lives
+        LevelBuilder.Build();              // create bricks
+        LevelBuilder.StartingPositions();  // ball & slider to start pos
+        LevelBuilder.StartPlay();          // begin play
     }
 
     // The Agent class calls this function
     // before it makes a decision
     public override void CollectObservations(VectorSensor sensor)
     {
-        Debug.Log("<slider_agent> Obtaining observations");
+        //Debug.Log("<slider_agent> Obtaining observations");
 
         //Target and Agent positions
         sensor.AddObservation(target_ball.localPosition);
@@ -54,7 +57,7 @@ public class slider_agent : Agent
     // This is called after CollectObservations
     public override void OnActionReceived(ActionBuffers actions)
     {
-        Debug.Log("<slider_agent> OnActionReceived");
+        //Debug.Log("<slider_agent> OnActionReceived");
 
         //Actions, size = 1 (only moving in one axis)
         Vector3 ControlSignal = Vector3.zero;
@@ -91,15 +94,25 @@ public class slider_agent : Agent
             AddReward(reward);
         }
 
+        // if slider misses ball
         if ( target_ball.position.y <= bottom_border.transform.position.y)
         {
-            // Slider failed to hit ball
-            AddReward(-1.0f);
-            EndEpisode();
+            AddReward(-1.0f/lives_per_game);
+            lives -= 1;
+            if (lives == 0) {
+                Debug.Log("<slider_agent> Game over! Out of lives.");
+                EndEpisode();
+            } else {
+                // reset ball & slider position; restart play
+                Debug.Log("<slider_agent> Continuing level with " + lives.ToString() + " lives.");
+                LevelBuilder.StartingPositions();
+                LevelBuilder.StartPlay();
+            }
         }
 
         if ( LevelBuilder.brick_count == 0)
         {
+            Debug.Log("<slider_agent> Game over! Level is clear.");
             AddReward(1.0f);
             EndEpisode();
         }
@@ -130,12 +143,4 @@ public class slider_agent : Agent
             );
         }
     }
-
-    public void StartGame()
-    {
-        // PlayStarted = false;
-        LevelBuilder.Build();
-        LevelBuilder.StartPlay();
-    }
-
 }
