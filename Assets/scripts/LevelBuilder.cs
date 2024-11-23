@@ -1,9 +1,12 @@
 using UnityEngine;
+using System;
+using System.Collections;
 
 public class LevelBuilder : MonoBehaviour
 {
     public BrickHandler BrickHandler;
-    public int num_cols = 12, num_rows = 8;
+    public BrickStatusMap BrickStatusMap;
+    public const int num_cols = 12, num_rows = 8;
     public float brick_x_space = 1.05f, brick_y_space = 0.5f;
     public float brick_x_start = -5.8f, brick_y_start = 0f;
     public int TotalBricks;
@@ -23,15 +26,14 @@ public class LevelBuilder : MonoBehaviour
         for (int i = 0; i < num_cols * num_rows; i++)
         {
             Vector2 block_spacing = new(brick_x_space * (i % num_cols),
-
-            brick_y_space * (i / num_cols));
-
+                brick_y_space * (i / num_cols));
             Vector2 next_block_placement = start_block_placement + block_spacing;
             Color brick_color = BrickHandler.Colors[(i / num_cols) % BrickHandler.Colors.Length];
             int points_value = (i / num_cols + 1) * 10;
-            BrickHandler.PlaceBrick(next_block_placement, brick_color, points_value);
+            BrickHandler.PlaceBrick(next_block_placement, brick_color, BrickStatusMap, i, points_value);
             brick_count++;
         }
+        BrickStatusMap.Reset();
         TotalBricks = num_cols * num_rows;
         StartingPositions();
     }

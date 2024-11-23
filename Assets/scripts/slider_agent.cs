@@ -43,22 +43,25 @@ public class slider_agent : Agent
         LevelBuilder.StartPlay();          // begin play
     }
 
-    // The Agent class calls this function
-    // before it makes a decision
+    // The Agent class calls this function before it makes a decision
     public override void CollectObservations(VectorSensor sensor)
     {
-        //Debug.Log("<slider_agent> Obtaining observations");
-
-        //Target and Agent positions
-        sensor.AddObservation(target_ball.localPosition);
+        // observe slider (agent) position
         sensor.AddObservation(this.transform.localPosition);
+
+        // observe ball position
+        sensor.AddObservation(target_ball.localPosition);
+
+        // observe ball velocity:
+        sensor.AddObservation(target_ball.GetComponent<Rigidbody2D>().velocity);
+
+        // observe which bricks are broken and which aren't
+        sensor.AddObservation(LevelBuilder.BrickStatusMap.BrickObservations());
     }
 
     // This is called after CollectObservations
     public override void OnActionReceived(ActionBuffers actions)
     {
-        //Debug.Log("<slider_agent> OnActionReceived");
-
         //Actions, size = 1 (only moving in one axis)
         Vector3 ControlSignal = Vector3.zero;
         ControlSignal.x = actions.ContinuousActions[0] * 0.2f;

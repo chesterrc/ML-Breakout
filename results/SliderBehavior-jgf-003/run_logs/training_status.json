@@ -2,22 +2,22 @@
     "SliderBehavior": {
         "checkpoints": [
             {
-                "steps": 22711,
-                "file_path": "results\\SliderBehavior-jgf-003\\SliderBehavior\\SliderBehavior-22711.onnx",
-                "reward": 6.33333335178239,
-                "creation_time": 1732309468.7390916,
+                "steps": 60037,
+                "file_path": "results\\SliderBehavior-jgf-003\\SliderBehavior\\SliderBehavior-60037.onnx",
+                "reward": 47.704724230664844,
+                "creation_time": 1732386935.3210292,
                 "auxillary_file_paths": [
-                    "results\\SliderBehavior-jgf-003\\SliderBehavior\\SliderBehavior-22711.pt"
+                    "results\\SliderBehavior-jgf-003\\SliderBehavior\\SliderBehavior-60037.pt"
                 ]
             }
         ],
         "final_checkpoint": {
-            "steps": 22711,
+            "steps": 60037,
             "file_path": "results\\SliderBehavior-jgf-003\\SliderBehavior.onnx",
-            "reward": 6.33333335178239,
-            "creation_time": 1732309468.7390916,
+            "reward": 47.704724230664844,
+            "creation_time": 1732386935.3210292,
             "auxillary_file_paths": [
-                "results\\SliderBehavior-jgf-003\\SliderBehavior\\SliderBehavior-22711.pt"
+                "results\\SliderBehavior-jgf-003\\SliderBehavior\\SliderBehavior-60037.pt"
             ]
         }
     },

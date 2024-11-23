@@ -2,40 +2,22 @@
     "SliderBehavior": {
         "checkpoints": [
             {
-                "steps": 8569,
-                "file_path": "results\\SliderBehavior-jgf-001\\SliderBehavior\\SliderBehavior-8569.onnx",
-                "reward": 3.7111111018392773,
-                "creation_time": 1732299907.7024288,
+                "steps": 60134,
+                "file_path": "results\\SliderBehavior-jgf-001\\SliderBehavior\\SliderBehavior-60134.onnx",
+                "reward": 58.03814917895943,
+                "creation_time": 1732382216.4218016,
                 "auxillary_file_paths": [
-                    "results\\SliderBehavior-jgf-001\\SliderBehavior\\SliderBehavior-8569.pt"
-                ]
-            },
-            {
-                "steps": 27964,
-                "file_path": "results\\SliderBehavior-jgf-001\\SliderBehavior\\SliderBehavior-27964.onnx",
-                "reward": 7.562903297524298,
-                "creation_time": 1732302528.4196827,
-                "auxillary_file_paths": [
-                    "results\\SliderBehavior-jgf-001\\SliderBehavior\\SliderBehavior-27964.pt"
-                ]
-            },
-            {
-                "steps": 50219,
-                "file_path": "results\\SliderBehavior-jgf-001\\SliderBehavior\\SliderBehavior-50219.onnx",
-                "reward": 9.706250123679638,
-                "creation_time": 1732305366.151974,
-                "auxillary_file_paths": [
-                    "results\\SliderBehavior-jgf-001\\SliderBehavior\\SliderBehavior-50219.pt"
+                    "results\\SliderBehavior-jgf-001\\SliderBehavior\\SliderBehavior-60134.pt"
                 ]
             }
         ],
         "final_checkpoint": {
-            "steps": 50219,
+            "steps": 60134,
             "file_path": "results\\SliderBehavior-jgf-001\\SliderBehavior.onnx",
-            "reward": 9.706250123679638,
-            "creation_time": 1732305366.151974,
+            "reward": 58.03814917895943,
+            "creation_time": 1732382216.4218016,
             "auxillary_file_paths": [
-                "results\\SliderBehavior-jgf-001\\SliderBehavior\\SliderBehavior-50219.pt"
+                "results\\SliderBehavior-jgf-001\\SliderBehavior\\SliderBehavior-60134.pt"
             ]
         }
     },

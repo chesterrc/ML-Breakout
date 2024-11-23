@@ -3,13 +3,13 @@ behaviors:
   SliderBehavior:
     trainer_type: ppo
     hyperparameters:
-      batch_size: 128
+      batch_size: 512
       buffer_size: 4096
-      learning_rate: 0.0003
-      beta: 0.01
-      epsilon: 0.1
+      learning_rate: 3.0e-05
+      beta: 0.002
+      epsilon: 0.05
       lambd: 0.99
-      num_epoch: 3
+      num_epoch: 8
       shared_critic: false
       learning_rate_schedule: linear
       beta_schedule: constant
@@ -26,7 +26,7 @@ behaviors:
     reward_signals:
       extrinsic:
         gamma: 0.99
-        strength: 1.0
+        strength: 1.5
         network_settings:
           normalize: false
           hidden_units: 128
@@ -38,8 +38,8 @@ behaviors:
     init_path: null
     keep_checkpoints: 5
     even_checkpoints: false
-    max_steps: 100000
-    time_horizon: 64
+    max_steps: 400000
+    time_horizon: 128
     summary_freq: 1000
     threaded: false
     self_play: null
@@ -62,14 +62,14 @@ engine_settings:
   time_scale: 20
   target_frame_rate: -1
   capture_frame_rate: 60
-  no_graphics: true
+  no_graphics: false
   no_graphics_monitor: false
 environment_parameters: null
 checkpoint_settings:
   run_id: SliderBehavior-jgf-001
   initialize_from: null
   load_model: false
-  resume: true
+  resume: false
   force: false
   train_model: false
   inference: false

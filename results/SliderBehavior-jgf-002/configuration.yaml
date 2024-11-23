@@ -3,13 +3,13 @@ behaviors:
   SliderBehavior:
     trainer_type: ppo
     hyperparameters:
-      batch_size: 128
-      buffer_size: 4096
-      learning_rate: 0.0001
-      beta: 0.005
-      epsilon: 0.1
+      batch_size: 1024
+      buffer_size: 8192
+      learning_rate: 3.0e-05
+      beta: 0.001
+      epsilon: 0.05
       lambd: 0.99
-      num_epoch: 5
+      num_epoch: 8
       shared_critic: false
       learning_rate_schedule: linear
       beta_schedule: constant
@@ -26,7 +26,7 @@ behaviors:
     reward_signals:
       extrinsic:
         gamma: 0.99
-        strength: 1.0
+        strength: 1.8
         network_settings:
           normalize: false
           hidden_units: 128
@@ -38,8 +38,8 @@ behaviors:
     init_path: null
     keep_checkpoints: 5
     even_checkpoints: false
-    max_steps: 100000
-    time_horizon: 64
+    max_steps: 600000
+    time_horizon: 256
     summary_freq: 1000
     threaded: false
     self_play: null
