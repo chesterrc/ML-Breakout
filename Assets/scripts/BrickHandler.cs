@@ -15,7 +15,7 @@ public class BrickHandler : MonoBehaviour
         new Color(0.259f, 0.282f, 0.784f)
     };
 
-    public void PlaceBrick(Vector3 position, Color color, BrickStatusMap BrickStatusMap, int brick_id, int points_value = 10)
+    public void PlaceBrick(Vector3 position, Color color, float[] brick_status_map, int brick_id, int points_value = 10)
     {
         GameObject new_obj = Instantiate(Brick, position, Quaternion.identity);
         PaintBrick(new_obj, color);
@@ -24,7 +24,8 @@ public class BrickHandler : MonoBehaviour
         new_brick.ScoreKeeper = ScoreKeeper;
         new_brick.points_value = points_value;
         new_brick.brick_id = brick_id;
-        new_brick.BrickStatusMap = BrickStatusMap;
+        new_brick.brick_status_map = brick_status_map;
+        brick_status_map[brick_id] = 1.0f;
     }
 
     public void PaintBrick(GameObject brick, Color color)

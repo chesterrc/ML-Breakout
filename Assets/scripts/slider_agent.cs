@@ -24,9 +24,10 @@ public class slider_agent : Agent
 
     public void OnCollisionEnter(Collision collision)
     {
-        // Debug.Log("<slider_agent> Slider hit ball.");
+        // 
         // if slider collides with ball reward agent
         if(collision.gameObject.CompareTag("ball")){
+            Debug.Log("<slider_agent> Slider hit ball.");
             AddReward(0.8f);
         }
     }
@@ -59,7 +60,7 @@ public class slider_agent : Agent
         sensor.AddObservation(target_ball.GetComponent<Rigidbody2D>().angularVelocity);
 
         // observe which bricks are broken and which aren't
-        sensor.AddObservation(LevelBuilder.BrickStatusMap.BrickObservations());
+        sensor.AddObservation(LevelBuilder.brick_status_map);
     }
 
     // This is called after CollectObservations
@@ -83,16 +84,16 @@ public class slider_agent : Agent
         // Rewards //
 
         // continuous survival reward; decreases as bricks are destroyed
-        float reward_per_time = (0.01f / LevelBuilder.TotalBricks) * Time.deltaTime * LevelBuilder.BrickStatusMap.bricks_remaining;
+        float reward_per_time = (0.01f / LevelBuilder.TotalBricks) * Time.deltaTime * LevelBuilder.brick_count;
         AddReward(reward_per_time);
 
         // if brick broke by ball
         if( collided_ball.ball_collided )
         {
-            // Debug.Log("<slider_agent> ball broke brick");
+            Debug.Log("<slider_agent> ball broke brick; " + LevelBuilder.brick_count.ToString() + " more to go");
             collided_ball.ball_collided = false;            
             AddReward(0.1f);
-            AddReward(1.0f/LevelBuilder.BrickStatusMap.bricks_remaining);
+            AddReward(1.0f/LevelBuilder.brick_count);
         }
 
         // if slider misses ball
@@ -113,7 +114,7 @@ public class slider_agent : Agent
         }
         
         // if level is cleared of bricks
-        if ( LevelBuilder.BrickStatusMap.bricks_remaining == 0)
+        if ( LevelBuilder.brick_count == 0)
         {
             Debug.Log("<slider_agent> Game over! Level is clear.");
             AddReward(1.0f); // flat reward for beating level
@@ -127,7 +128,7 @@ public class slider_agent : Agent
     // for testing the environment manually
     public override void Heuristic(in ActionBuffers actionsOut)
     {
-        Debug.Log("<Heuristic> Controlling slider");
+        //Debug.Log("<Heuristic> Controlling slider");
         ActionSegment<float> continuous_actions_out = actionsOut.ContinuousActions;
 
         if (Input.GetKey(KeyCode.LeftArrow) &&

@@ -5,7 +5,6 @@ using UnityEngine;
 public class ball_collision : MonoBehaviour
 {
     private Rigidbody2D ball_col;
-    // Start is called before the first frame update
     public GameController game_controller;
     public LevelBuilder LevelBuilder;
     public bool ball_collided = false;
@@ -38,8 +37,8 @@ public class ball_collision : MonoBehaviour
         }
         else if (collision.gameObject.CompareTag("brick"))
         {
-            // Debug.Log("hit a brick");
             LevelBuilder.brick_count--;
+            Debug.Log("hit a brick; " + LevelBuilder.brick_count.ToString() + " more to go");
             ball_collided = true;
             //Get the difference in x to see if we hit the left or right side
 
