@@ -8,7 +8,7 @@ public class Brick : MonoBehaviour
     public ScoreKeeper ScoreKeeper;
     public int points_value;
     public int brick_id;
-    public float[] brick_status_map;
+    public LevelBuilder levelBuilder;
     public BoxCollider2D brick_collider;
 
     void Start()
@@ -21,7 +21,8 @@ public class Brick : MonoBehaviour
     {
         // Debug.Log("<Brick.cs> Collision detected by a Brick.");
         ScoreKeeper.IncreaseScore(points_value);
-        brick_status_map[brick_id] = 0.0f;
+        levelBuilder.brick_status_map[brick_id] = 0.0f;
+        levelBuilder.brick_count--;
         Destroy(game_obj);
     }
 

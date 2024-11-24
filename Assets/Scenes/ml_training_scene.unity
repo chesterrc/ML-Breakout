@@ -494,7 +494,6 @@ GameObject:
   - component: {fileID: 824182924}
   - component: {fileID: 824182927}
   - component: {fileID: 824182926}
-  - component: {fileID: 824182928}
   m_Layer: 0
   m_Name: LevelBuilder
   m_TagString: Untagged
@@ -515,12 +514,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BrickHandler: {fileID: 824182927}
-  BrickStatusMap: {fileID: 824182928}
   brick_x_space: 1.05
   brick_y_space: 0.6
   brick_x_start: -5.8
   brick_y_start: 0
-  TotalBricks: 0
   Ball: {fileID: 1468777472}
   ball_x_start: 0
   ball_y_start: -4
@@ -573,18 +570,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Brick: {fileID: 8538666254444121862, guid: 81aa664440599074a94913ba763d821e, type: 3}
   ScoreKeeper: {fileID: 824182926}
---- !u!114 &824182928
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 824182923}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 97e2f14bfa137dd4ea2027271320c82e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &864837977
 GameObject:
   m_ObjectHideFlags: 0
@@ -978,7 +963,7 @@ GameObject:
   - component: {fileID: 1468777473}
   m_Layer: 0
   m_Name: ball (1)
-  m_TagString: Untagged
+  m_TagString: ball
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -998,6 +983,7 @@ MonoBehaviour:
   game_controller: {fileID: 0}
   LevelBuilder: {fileID: 824182924}
   ball_collided: 0
+  ball_hit_slider: 0
 --- !u!58 &1468777474
 CircleCollider2D:
   m_ObjectHideFlags: 0

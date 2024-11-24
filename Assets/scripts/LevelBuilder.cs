@@ -34,7 +34,7 @@ public class LevelBuilder : MonoBehaviour
             Vector2 next_block_placement = start_block_placement + block_spacing;
             Color brick_color = BrickHandler.Colors[(i / num_cols) % BrickHandler.Colors.Length];
             int points_value = (i / num_cols + 1) * 10;
-            BrickHandler.PlaceBrick(next_block_placement, brick_color, brick_status_map, i, points_value);
+            BrickHandler.PlaceBrick(next_block_placement, brick_color, this, i, points_value);
         }
         StartingPositions();
     }

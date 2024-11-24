@@ -22,16 +22,6 @@ public class slider_agent : Agent
         slider = GetComponent<Rigidbody2D>();
     }
 
-    public void OnCollisionEnter(Collision collision)
-    {
-        // 
-        // if slider collides with ball reward agent
-        if(collision.gameObject.CompareTag("ball")){
-            Debug.Log("<slider_agent> Slider hit ball.");
-            AddReward(0.8f);
-        }
-    }
-
     // function that is called when an episode ends
     public override void OnEpisodeBegin()
     {
@@ -94,6 +84,13 @@ public class slider_agent : Agent
             collided_ball.ball_collided = false;            
             AddReward(0.1f);
             AddReward(1.0f/LevelBuilder.brick_count);
+        }
+
+        // if slider hits the ball
+        if(collided_ball.ball_hit_slider){
+            Debug.Log("<slider_agent> Slider hit ball.");
+            collided_ball.ball_hit_slider = false;
+            AddReward(0.8f);
         }
 
         // if slider misses ball
