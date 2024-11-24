@@ -18,7 +18,7 @@ public class ball_collision : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log("ball collision");
+        // Debug.Log("ball collision");
         if ( collision.gameObject.CompareTag("slider") )
         {
             //Get the difference in x to see if we hit the left or right side
@@ -38,7 +38,7 @@ public class ball_collision : MonoBehaviour
         }
         else if (collision.gameObject.CompareTag("brick"))
         {
-            Debug.Log("hit a brick");
+            // Debug.Log("hit a brick");
             LevelBuilder.brick_count--;
             ball_collided = true;
             //Get the difference in x to see if we hit the left or right side
@@ -47,7 +47,7 @@ public class ball_collision : MonoBehaviour
         }
         else if (collision.gameObject.CompareTag("bottom"))
         {
-            Debug.Log("Missed slider.");
+            // Debug.Log("Missed slider.");
             game_controller.PlayerMissedBall();
         }
     }

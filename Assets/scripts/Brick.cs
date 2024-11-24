@@ -19,7 +19,7 @@ public class Brick : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log("<Brick.cs> Collision detected by a Brick.");
+        // Debug.Log("<Brick.cs> Collision detected by a Brick.");
         ScoreKeeper.IncreaseScore(points_value);
         BrickStatusMap.DestroyBrick(brick_id);
         Destroy(game_obj);

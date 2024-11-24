@@ -9,7 +9,7 @@ public class LevelBuilder : MonoBehaviour
     public const int num_cols = 12, num_rows = 8;
     public float brick_x_space = 1.05f, brick_y_space = 0.5f;
     public float brick_x_start = -5.8f, brick_y_start = 0f;
-    public int TotalBricks;
+    public const int TotalBricks = num_cols * num_rows;
 
     public GameObject Ball;
     public float ball_x_start = 0f, ball_y_start = -4f;
@@ -34,7 +34,6 @@ public class LevelBuilder : MonoBehaviour
             brick_count++;
         }
         BrickStatusMap.Reset();
-        TotalBricks = num_cols * num_rows;
         StartingPositions();
     }
 

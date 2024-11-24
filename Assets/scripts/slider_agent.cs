@@ -24,7 +24,7 @@ public class slider_agent : Agent
 
     public void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("<slider_agent> Slider hit ball.");
+        // Debug.Log("<slider_agent> Slider hit ball.");
         // if slider collides with ball reward agent
         if(collision.gameObject.CompareTag("ball")){
             AddReward(0.8f);
@@ -55,6 +55,9 @@ public class slider_agent : Agent
         // observe ball velocity:
         sensor.AddObservation(target_ball.GetComponent<Rigidbody2D>().velocity);
 
+        // observe ball angular velocity
+        sensor.AddObservation(target_ball.GetComponent<Rigidbody2D>().angularVelocity);
+
         // observe which bricks are broken and which aren't
         sensor.AddObservation(LevelBuilder.BrickStatusMap.BrickObservations());
     }
@@ -77,24 +80,37 @@ public class slider_agent : Agent
             );
         }
 
-        // Rewards
-        float slider_position_x = Mathf.Abs( slider.transform.position.x);
-        float ball_position_x = Mathf.Abs( target_ball.position.x );
-        float distance_to_target = Mathf.Abs( slider_position_x - ball_position_x );
+        // Rewards //
+
+        // continuous survival reward; decreases as bricks are destroyed
+        float reward_per_time = (0.01f / LevelBuilder.TotalBricks) * Time.deltaTime * LevelBuilder.BrickStatusMap.bricks_remaining;
+        AddReward(reward_per_time);
+
 
         // brick broke by ball
         if( collided_ball.ball_collided )
         {
-            Debug.Log("<slider_agent> ball broke brick");
-            collided_ball.ball_collided = false;
-            AddReward(1/LevelBuilder.BrickStatusMap.bricks_remaining);
+            // Debug.Log("<slider_agent> ball broke brick");
+            collided_ball.ball_collided = false;            
+            AddReward(0.1f);
+            AddReward(1.0f/LevelBuilder.BrickStatusMap.bricks_remaining);
         }
 
         // if slider is <= 1 unit from ball, reward based on proximity of slider to ball
+        float slider_position_x = Mathf.Abs( slider.transform.position.x);
+        float ball_position_x = Mathf.Abs( target_ball.position.x );
+        float distance_to_target = Mathf.Abs( slider_position_x - ball_position_x );
         if (distance_to_target <= 1.0f)
         {
-            float reward = Mathf.Clamp(1.0f - distance_to_target, 0.0f, 0.1f);
-            AddReward(reward);
+            float proximity_reward = Mathf.Clamp(1.0f - distance_to_target, 0.0f, 0.5f);
+            AddReward(proximity_reward);
+        }
+
+        // penalize for poor positioning when the ball is moving downward
+        float ball_velocity_y = target_ball.GetComponent<Rigidbody2D>().velocity.y;
+        if (ball_velocity_y <= 0.0f && distance_to_target > 2.0f)
+        {
+            AddReward(-0.1f);
         }
 
         // if slider misses ball
@@ -112,11 +128,16 @@ public class slider_agent : Agent
                 LevelBuilder.StartPlay();
             }
         }
-
-        if ( LevelBuilder.brick_count == 0)
+        
+        // if level is cleared of bricks
+        if ( LevelBuilder.BrickStatusMap.bricks_remaining == 0)
         {
             Debug.Log("<slider_agent> Game over! Level is clear.");
-            AddReward(1.0f);
+            AddReward(1.0f); // flat reward for beating level
+            for (int i=1; i < lives; ++i) {
+                // bonus reward for beating level with more than 1 life remaining
+                AddReward(1.0f);
+            }
             EndEpisode();
         }
     }
