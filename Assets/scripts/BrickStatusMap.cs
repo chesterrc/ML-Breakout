@@ -5,6 +5,7 @@ using UnityEngine;
 public class BrickStatusMap : MonoBehaviour
 {
     public static BrickStatusMap Instance { get; private set; }
+    public int bricks_remaining {get; private set;}
     private const int length = 96; // equal to num_rows * num_cols in LevelBuilder
     private float[] brick_status_map;
 
@@ -25,11 +26,13 @@ public class BrickStatusMap : MonoBehaviour
         {
             brick_status_map[i] = 1.0f;
         }
+        bricks_remaining = length;
     }
 
     public void DestroyBrick(int brick_id)
     {
         brick_status_map[brick_id] = 0.0f;
+        bricks_remaining -= 1;
     }
 
     public float[] BrickObservations()

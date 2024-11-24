@@ -27,7 +27,7 @@ public class slider_agent : Agent
         Debug.Log("<slider_agent> Slider hit ball.");
         // if slider collides with ball reward agent
         if(collision.gameObject.CompareTag("ball")){
-            AddReward(0.3f);
+            AddReward(0.8f);
         }
     }
 
@@ -87,7 +87,7 @@ public class slider_agent : Agent
         {
             Debug.Log("<slider_agent> ball broke brick");
             collided_ball.ball_collided = false;
-            AddReward(0.8f);
+            AddReward(1/LevelBuilder.BrickStatusMap.bricks_remaining);
         }
 
         // if slider is <= 1 unit from ball, reward based on proximity of slider to ball
@@ -100,7 +100,7 @@ public class slider_agent : Agent
         // if slider misses ball
         if ( target_ball.position.y <= bottom_border.transform.position.y)
         {
-            AddReward(-1.0f/lives_per_game);
+            AddReward(-1.0f);
             lives -= 1;
             if (lives == 0) {
                 Debug.Log("<slider_agent> Game over! Out of lives.");
