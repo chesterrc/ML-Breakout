@@ -2,6 +2,7 @@ using Unity.MLAgents;
 using Unity.MLAgents.Actuators;
 using Unity.MLAgents.Sensors;
 using UnityEngine;
+using System.Collections;
 
 public class slider_agent : Agent
 {
@@ -30,8 +31,12 @@ public class slider_agent : Agent
         // start new game:
         lives = lives_per_game;            // reset lives to max lives
         LevelBuilder.Build();              // create bricks
-        LevelBuilder.StartingPositions();  // ball & slider to start pos
+        StartCoroutine(WaitForLevelConstruction());
         LevelBuilder.StartPlay();          // begin play
+    }
+
+    private IEnumerator WaitForLevelConstruction() {
+        yield return new WaitUntil(() => !LevelBuilder.building);
     }
 
     // The Agent class calls this function before it makes a decision
@@ -122,6 +127,7 @@ public class slider_agent : Agent
             EndEpisode();
         }
     }
+
     // for testing the environment manually
     public override void Heuristic(in ActionBuffers actionsOut)
     {

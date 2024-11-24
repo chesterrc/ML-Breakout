@@ -17,12 +17,14 @@ public class LevelBuilder : MonoBehaviour
     public float slider_x_start = 0f, slider_y_start = -6f;
     public float slider_left_bound = -5.25f;
     public float slider_right_bound = 5.25f;
-    public int brick_count;
+    public int brick_count {get; private set;}
 
     public float[] brick_status_map {get; private set;}
+    public bool building {get; private set;}
 
     public void Build()
     {
+        building = true;
         brick_status_map = new float[TotalBricks];
         brick_count = TotalBricks;
 
@@ -35,8 +37,10 @@ public class LevelBuilder : MonoBehaviour
             Color brick_color = BrickHandler.Colors[(i / num_cols) % BrickHandler.Colors.Length];
             int points_value = (i / num_cols + 1) * 10;
             BrickHandler.PlaceBrick(next_block_placement, brick_color, this, i, points_value);
+            brick_status_map[i] = 1.0f;
         }
         StartingPositions();
+        building = false;
     }
 
     public void StartPlay()
@@ -58,5 +62,10 @@ public class LevelBuilder : MonoBehaviour
         gameObj.transform.position = new Vector2(x_start, y_start);
         Rigidbody2D rb = gameObj.GetComponent<Rigidbody2D>();
         rb.velocity = Vector2.zero;
+    }
+
+    public void DestroyBrick(int brick_id) {
+        brick_status_map[brick_id] = 0.0f;
+        brick_count--;
     }
 }

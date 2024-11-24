@@ -25,7 +25,6 @@ public class BrickHandler : MonoBehaviour
         new_brick.points_value = points_value;
         new_brick.brick_id = brick_id;
         new_brick.levelBuilder = levelBuilder;
-        levelBuilder.brick_status_map[brick_id] = 1.0f;
     }
 
     public void PaintBrick(GameObject brick, Color color)
