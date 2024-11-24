@@ -86,31 +86,13 @@ public class slider_agent : Agent
         float reward_per_time = (0.01f / LevelBuilder.TotalBricks) * Time.deltaTime * LevelBuilder.BrickStatusMap.bricks_remaining;
         AddReward(reward_per_time);
 
-
-        // brick broke by ball
+        // if brick broke by ball
         if( collided_ball.ball_collided )
         {
             // Debug.Log("<slider_agent> ball broke brick");
             collided_ball.ball_collided = false;            
             AddReward(0.1f);
             AddReward(1.0f/LevelBuilder.BrickStatusMap.bricks_remaining);
-        }
-
-        // if slider is <= 1 unit from ball, reward based on proximity of slider to ball
-        float slider_position_x = Mathf.Abs( slider.transform.position.x);
-        float ball_position_x = Mathf.Abs( target_ball.position.x );
-        float distance_to_target = Mathf.Abs( slider_position_x - ball_position_x );
-        if (distance_to_target <= 1.0f)
-        {
-            float proximity_reward = Mathf.Clamp(1.0f - distance_to_target, 0.0f, 0.5f);
-            AddReward(proximity_reward);
-        }
-
-        // penalize for poor positioning when the ball is moving downward
-        float ball_velocity_y = target_ball.GetComponent<Rigidbody2D>().velocity.y;
-        if (ball_velocity_y <= 0.0f && distance_to_target > 2.0f)
-        {
-            AddReward(-0.1f);
         }
 
         // if slider misses ball
@@ -120,6 +102,7 @@ public class slider_agent : Agent
             lives -= 1;
             if (lives == 0) {
                 Debug.Log("<slider_agent> Game over! Out of lives.");
+                AddReward(-1.0f);
                 EndEpisode();
             } else {
                 // reset ball & slider position; restart play
