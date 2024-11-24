@@ -33,6 +33,7 @@ public class LevelBuilder : MonoBehaviour
             brick_count++;
         }
         TotalBricks = num_cols * num_rows;
+        
         StartingPositions();
     }
 

@@ -5,13 +5,9 @@ using UnityEngine.SceneManagement;
 public class ScoreKeeper : MonoBehaviour
 {
     public static ScoreKeeper Instance { get; private set; }
-    public LevelBuilder LevelBuilder;
     public int Score { get; private set; }
     public int BrickCount {get; private set; }
     public Text score_text;
-    public static readonly string ScoreKey = "LevelEndScore";
-    private int currentScore;
-    private int tmpScore;
 
     private void Start()
     {
@@ -37,6 +33,8 @@ public class ScoreKeeper : MonoBehaviour
         UpdateScoreText();
         BrickCount++;
         Debug.Log("Bricks destroyed: " + BrickCount);
+        SaveLS.SavedScore = Score;
+        Debug.Log("<ScoreKeeper> SaveLS.SavedScore updated to: " + Score);
         
     }
 
@@ -59,7 +57,7 @@ public class ScoreKeeper : MonoBehaviour
 
     public static int LoadScore()
     {
-        int score = PlayerPrefs.GetInt(ScoreKey);
+        int score = SaveLS.SavedScore;
         Debug.Log("Loaded score: " + score);
         return score;
     }

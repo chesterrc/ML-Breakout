@@ -10,11 +10,20 @@ EditorBuildSettings:
     guid: d422e02ff54cdacbfbf0bbac836b38c7
   - enabled: 1
     path: Assets/Scenes/level1.unity
-    guid: 2cda990e2423bbf4892e6590ba056729
+    guid: 397be2462b1ad3140b2cc2ff34c3e903
   - enabled: 1
     path: Assets/Scenes/level2.unity
-    guid: 5866a57c3a98cec7996d19c37d89d2f1
+    guid: 1ccbd263ed7151afe969ecc9467390f0
   - enabled: 1
     path: Assets/Scenes/level3.unity
     guid: 8ed47d88c8323f5feb7be9d940ba9d87
+  - enabled: 1
+    path: Assets/Scenes/versus.unity
+    guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 0
+    path: Assets/Scenes/level2.2.unity
+    guid: c26e5db9052dcb73a9a7f0c5f9a8196f
+  - enabled: 0
+    path: Assets/Scenes/level2.backup.unity
+    guid: 5866a57c3a98cec7996d19c37d89d2f1
   m_configObjects: {}

@@ -744,8 +744,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   LevelBuilder: {fileID: 0}
-  CurrentLevel:
-    m_Handle: 0
   score_text: {fileID: 1045994472}
 --- !u!114 &1129836805
 MonoBehaviour:
@@ -789,6 +787,7 @@ MonoBehaviour:
   slider_y_start: -6
   slider_left_bound: -5.5
   slider_right_bound: 5.5
+  brick_count: 0
 --- !u!114 &1129836807
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -819,6 +818,7 @@ MonoBehaviour:
   LevelBuilder: {fileID: 1129836806}
   BrickHandler: {fileID: 1129836805}
   Slider: {fileID: 193779887}
+  Ball: {fileID: 0}
   CurrentLevel:
     m_Handle: 0
 --- !u!1 &1174875808

@@ -6,11 +6,6 @@ public class LifeTracker : MonoBehaviour
     public static LifeTracker Instance { get; private set; }
     public int Lives { get; private set; }
     public Text lives_text;
-    public static readonly string LivesKey = "NumLives";
-    private int currentLives;
-    private int tmpLives;
-
-    private readonly int starting_lives;
 
     private void Start()
     {
@@ -32,6 +27,8 @@ public class LifeTracker : MonoBehaviour
     {
         Lives -= 1;
         UpdateLivesText();
+        SaveLS.SavedLives = Lives;
+        Debug.Log("<LifeTracker> SaveLS.SavedLives updated to " + Lives);
     }
 
     public int GetLives()
@@ -48,8 +45,8 @@ public class LifeTracker : MonoBehaviour
 
     public static int LoadLives()
     {
-        int lives = PlayerPrefs.GetInt(LivesKey);
-        Debug.Log("Loaded lives: " + lives);
+        int lives = SaveLS.SavedLives;
+        Debug.Log("<LifeTracker> SaveLS Loaded lives: " + lives);
         return lives;
     }
 
