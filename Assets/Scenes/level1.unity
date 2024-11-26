@@ -744,8 +744,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   LevelBuilder: {fileID: 0}
-  CurrentLevel:
-    m_Handle: 0
   score_text: {fileID: 1045994472}
 --- !u!114 &1129836805
 MonoBehaviour:
@@ -789,6 +787,7 @@ MonoBehaviour:
   slider_y_start: -6
   slider_left_bound: -5.5
   slider_right_bound: 5.5
+  brick_count: 0
 --- !u!114 &1129836807
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1043,7 +1042,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 059e4997316bfff2d9f4615e30961a04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GameController: {fileID: 1129836808}
+  game_controller: {fileID: 1129836808}
 --- !u!61 &1567333790
 BoxCollider2D:
   m_ObjectHideFlags: 0
