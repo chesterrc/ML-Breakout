@@ -36,7 +36,7 @@ public class ScoreKeeper : MonoBehaviour
         Score += points;
         UpdateScoreText();
         BrickCount++;
-        Debug.Log("Bricks destroyed: " + BrickCount);
+        // Debug.Log("Bricks destroyed: " + BrickCount);
         
     }
 

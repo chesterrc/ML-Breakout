@@ -1,44 +1,47 @@
 using UnityEngine;
+using System;
+using System.Collections;
 
 public class LevelBuilder : MonoBehaviour
 {
     public BrickHandler BrickHandler;
-    public int num_cols = 12, num_rows = 8;
-    public float brick_x_space = 1.05f, brick_y_space = 0.8f;
+    public const int num_cols = 12, num_rows = 8;
+    public float brick_x_space = 1.05f, brick_y_space = 0.5f;
     public float brick_x_start = -5.8f, brick_y_start = 0f;
-    public int TotalBricks;
+    public const int TotalBricks = num_cols * num_rows;
 
     public GameObject Ball;
     public float ball_x_start = 0f, ball_y_start = -4f;
 
     public GameObject Slider;
     public float slider_x_start = 0f, slider_y_start = -6f;
-    public float slider_left_bound = -5.5f;
-    public float slider_right_bound = 5.5f;
-    public int brick_count = 0;
+    public float slider_left_bound = -5.25f;
+    public float slider_right_bound = 5.25f;
+    public int brick_count;
+
+    public float[] brick_status_map {get; private set;}
 
     public void Build()
     {
-        Vector3 start_block_placement = new(brick_x_start, brick_y_start);
+        brick_status_map = new float[TotalBricks];
+        brick_count = TotalBricks;
+
+        Vector2 start_block_placement = new(brick_x_start, brick_y_start);
         for (int i = 0; i < num_cols * num_rows; i++)
         {
-            Vector3 block_spacing = new(brick_x_space * (i % num_cols),
-
-            brick_y_start + (brick_y_space * (i / num_cols)));
-
-            Vector3 next_block_placement = start_block_placement + block_spacing;
+            Vector2 block_spacing = new(brick_x_space * (i % num_cols),
+                brick_y_space * (i / num_cols));
+            Vector2 next_block_placement = start_block_placement + block_spacing;
             Color brick_color = BrickHandler.Colors[(i / num_cols) % BrickHandler.Colors.Length];
             int points_value = (i / num_cols + 1) * 10;
-            BrickHandler.PlaceBrick(next_block_placement, brick_color, points_value);
-            brick_count++;
+            BrickHandler.PlaceBrick(next_block_placement, brick_color, this, i, points_value);
         }
-        TotalBricks = num_cols * num_rows;
         StartingPositions();
     }
 
     public void StartPlay()
     {
-        Vector2 ball_force = new(0, -200);
+        Vector2 ball_force = new(0, -230);
         Rigidbody2D ball_rb = Ball.GetComponent<Rigidbody2D>();
         ball_rb.AddForce(ball_force);
         Debug.Log("LevelBuilder started play");
