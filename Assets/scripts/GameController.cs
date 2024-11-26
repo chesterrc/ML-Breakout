@@ -111,16 +111,8 @@ public class GameController : MonoBehaviour
 
     void GameOver()
     {
-        //loads the end scene
-        Debug.Log("Ending Scene");
-        tmpScore = ScoreKeeper.GetScore();
-        tmpLives = LifeTracker.GetLives();
-        SaveData(tmpScore, tmpLives);
-        SceneManager.LoadScene("end_scene");
-        currentLives = LoadLives();
-        LifeTracker.UpdateLives(currentLives);
-        currentScore = LoadScore();
-        ScoreKeeper.UpdateScore(currentScore);
+        SceneManager.LoadScene(0);
+        SaveData(0, 5);
         
     }
 

@@ -518,7 +518,6 @@ MonoBehaviour:
   brick_y_space: 0.6
   brick_x_start: -5.8
   brick_y_start: 0
-  TotalBricks: 0
   Ball: {fileID: 1468777472}
   ball_x_start: 0
   ball_y_start: -4
@@ -555,7 +554,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e3cdc30a42600b4dbfb5a9f7165d730, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LevelBuilder: {fileID: 0}
   score_text: {fileID: 1266610559}
 --- !u!114 &824182927
 MonoBehaviour:
@@ -1215,7 +1213,6 @@ GameObject:
   - component: {fileID: 1807889698}
   - component: {fileID: 1807889697}
   - component: {fileID: 1807889699}
-  - component: {fileID: 1807889700}
   m_Layer: 0
   m_Name: Slider (1)
   m_TagString: slider
@@ -1383,9 +1380,10 @@ MonoBehaviour:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
   MaxStep: 0
+  bottom_border: {fileID: 864837977}
+  target_ball: {fileID: 1468777477}
   LevelBuilder: {fileID: 824182924}
   collided_ball: {fileID: 1468777473}
-  lives_per_game: 5
 --- !u!114 &1807889699
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1400,19 +1398,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DecisionPeriod: 5
   TakeActionsBetweenDecisions: 1
---- !u!114 &1807889700
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1807889692}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c47b3f8cd1881544f9b942b8167fcb10, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  lives_text: {fileID: 1387349234}
 --- !u!1 &2028161844
 GameObject:
   m_ObjectHideFlags: 0

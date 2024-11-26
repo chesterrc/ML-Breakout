@@ -29,11 +29,5 @@ public class start_menu : MonoBehaviour
         Debug.Log("Starting vs CPU mode");
     }
 
-    public void return_to_menu()
-    {
-        //returns player to main menu
-        SceneManager.LoadScene("menu");
-        Debug.Log("Returning to menu");
-    }
 
 }
