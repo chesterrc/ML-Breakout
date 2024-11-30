@@ -79,16 +79,16 @@ public class slider_agent : Agent
         // Rewards //
 
         // continuous survival reward; decreases as bricks are destroyed
-        float reward_per_time = (0.01f / LevelBuilder.TotalBricks) * Time.deltaTime * LevelBuilder.brick_count;
+        float reward_per_time = (0.01f / LevelBuilder.TotalBricks) * Time.deltaTime * LevelBuilder.BricksRemaining();
         AddReward(reward_per_time);
 
         // if brick broke by ball
         if( collided_ball.ball_collided )
         {
-            Debug.Log("<slider_agent> ball broke brick; " + LevelBuilder.brick_count.ToString() + " more to go");
+            Debug.Log("<slider_agent> ball broke brick; " + LevelBuilder.BricksRemaining().ToString() + " more to go");
             collided_ball.ball_collided = false;            
-            AddReward(0.1f);
-            AddReward(1.0f/LevelBuilder.brick_count);
+            AddReward(0.5f);
+            AddReward(1.0f/LevelBuilder.BricksRemaining());
         }
 
         // if slider hits the ball
@@ -101,7 +101,7 @@ public class slider_agent : Agent
         // if slider misses ball
         if ( target_ball.position.y <= bottom_border.transform.position.y)
         {
-            AddReward(-1.0f);
+            AddReward(-1.0f/lives_per_game);
             lives -= 1;
             if (lives == 0) {
                 Debug.Log("<slider_agent> Game over! Out of lives.");
@@ -116,7 +116,7 @@ public class slider_agent : Agent
         }
         
         // if level is cleared of bricks
-        if ( LevelBuilder.brick_count == 0)
+        if ( LevelBuilder.BricksRemaining() == 0)
         {
             Debug.Log("<slider_agent> Game over! Level is clear.");
             AddReward(1.0f); // flat reward for beating level

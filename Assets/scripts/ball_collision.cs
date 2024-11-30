@@ -40,8 +40,7 @@ public class ball_collision : MonoBehaviour
         }
         else if (collision.gameObject.CompareTag("brick"))
         {
-            int bricks_left = LevelBuilder.brick_count;
-            Debug.Log("<ball_collision.cs> hit a brick; " + bricks_left.ToString() + " more to go");
+            Debug.Log("<ball_collision.cs> hit a brick; " + LevelBuilder.BricksRemaining().ToString() + " more to go");
             ball_collided = true;
             //Get the difference in x to see if we hit the left or right side
 

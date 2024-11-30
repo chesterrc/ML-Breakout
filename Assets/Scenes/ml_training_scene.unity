@@ -526,7 +526,6 @@ MonoBehaviour:
   slider_y_start: -6
   slider_left_bound: -5.5
   slider_right_bound: 5.5
-  brick_count: 0
 --- !u!4 &824182925
 Transform:
   m_ObjectHideFlags: 0
