@@ -25,7 +25,6 @@ public class LevelBuilder : MonoBehaviour
     public int BricksRemaining()
     {
         return brick_status_map.Count(b => b == 1.0f);
-
     }
 
     public void Build()

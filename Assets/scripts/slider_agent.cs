@@ -45,6 +45,9 @@ public class slider_agent : Agent
         // observe slider (agent) position
         sensor.AddObservation(this.transform.localPosition);
 
+        // observe slider velocity
+        sensor.AddObservation(this.GetComponent<Rigidbody2D>().velocity);
+
         // observe ball position
         sensor.AddObservation(target_ball.localPosition);
 
@@ -78,24 +81,30 @@ public class slider_agent : Agent
 
         // Rewards //
 
+        int bricks_remaining = LevelBuilder.BricksRemaining();
+
         // continuous survival reward; decreases as bricks are destroyed
-        float reward_per_time = (0.01f / LevelBuilder.TotalBricks) * Time.deltaTime * LevelBuilder.BricksRemaining();
-        AddReward(reward_per_time);
+        //float reward_per_time = (0.01f / LevelBuilder.TotalBricks) * Time.deltaTime * LevelBuilder.BricksRemaining();
+        //AddReward(reward_per_time);
 
         // if brick broke by ball
         if( collided_ball.ball_collided )
         {
-            Debug.Log("<slider_agent> ball broke brick; " + LevelBuilder.BricksRemaining().ToString() + " more to go");
+            Debug.Log("<slider_agent> ball broke brick; " + bricks_remaining.ToString() + " more to go");
             collided_ball.ball_collided = false;            
-            AddReward(0.5f);
-            AddReward(1.0f/LevelBuilder.BricksRemaining());
+            AddReward(1.0f);
         }
 
         // if slider hits the ball
         if(collided_ball.ball_hit_slider){
             Debug.Log("<slider_agent> Slider hit ball.");
             collided_ball.ball_hit_slider = false;
-            AddReward(0.8f);
+            float ball_hit_reward = 1.0f;
+            if (bricks_remaining > 0)
+            {
+                ball_hit_reward -= 1/bricks_remaining;
+            }
+            //AddReward(ball_hit_reward);
         }
 
         // if slider misses ball
@@ -116,7 +125,7 @@ public class slider_agent : Agent
         }
         
         // if level is cleared of bricks
-        if ( LevelBuilder.BricksRemaining() == 0)
+        if ( bricks_remaining == 0)
         {
             Debug.Log("<slider_agent> Game over! Level is clear.");
             AddReward(1.0f); // flat reward for beating level
