@@ -14,8 +14,12 @@ public class slider_agent : Agent
 
     public LevelBuilder LevelBuilder;
     public ball_collision collided_ball;
-    public int lives_per_game = 5;
+
     private int lives;
+
+    private float ball_last_y;
+    private int ball_y_count;
+    private const int max_obs_for_ball_at_same_y = 10;
 
     void Start()
     {
@@ -26,10 +30,13 @@ public class slider_agent : Agent
     // function that is called when an episode ends
     public override void OnEpisodeBegin()
     {
+        lives = 5;
+        ball_y_count = 0;
+        ball_last_y = get_ball_y_position();
+
         Debug.Log("<slider_agent> New Episode Starting");
 
         // start new game:
-        lives = lives_per_game;            // reset lives to max lives
         LevelBuilder.Build();              // create bricks
         StartCoroutine(WaitForLevelConstruction());
         LevelBuilder.StartPlay();          // begin play
@@ -37,6 +44,11 @@ public class slider_agent : Agent
 
     private IEnumerator WaitForLevelConstruction() {
         yield return new WaitUntil(() => !LevelBuilder.building);
+    }
+
+    private float get_ball_y_position()
+    {
+        return target_ball.localPosition.y;
     }
 
     // The Agent class calls this function before it makes a decision
@@ -79,6 +91,19 @@ public class slider_agent : Agent
             );
         }
 
+        // if ball gets stuck, kill it
+        if (ball_last_y == get_ball_y_position())
+        {
+            ball_y_count++;
+        }
+        if (ball_y_count > max_obs_for_ball_at_same_y)
+        {
+            ball_y_count = 0;
+            LevelBuilder.StartingPositions();
+            LevelBuilder.StartPlay();            
+        }
+        ball_last_y = get_ball_y_position();
+
         // Rewards //
 
         int bricks_remaining = LevelBuilder.BricksRemaining();
@@ -91,48 +116,40 @@ public class slider_agent : Agent
         if( collided_ball.ball_collided )
         {
             Debug.Log("<slider_agent> ball broke brick; " + bricks_remaining.ToString() + " more to go");
-            collided_ball.ball_collided = false;            
-            AddReward(1.0f);
+            collided_ball.ball_collided = false;
+            float brick_break_reward = 1.0f/LevelBuilder.TotalBricks;
+            AddReward(brick_break_reward);
         }
 
         // if slider hits the ball
         if(collided_ball.ball_hit_slider){
-            Debug.Log("<slider_agent> Slider hit ball.");
             collided_ball.ball_hit_slider = false;
-            float ball_hit_reward = 1.0f;
-            if (bricks_remaining > 0)
-            {
-                ball_hit_reward -= 1/bricks_remaining;
-            }
-            //AddReward(ball_hit_reward);
+            // decidedly not rewarding for this
         }
 
         // if slider misses ball
         if ( target_ball.position.y <= bottom_border.transform.position.y)
         {
-            AddReward(-1.0f/lives_per_game);
-            lives -= 1;
-            if (lives == 0) {
-                Debug.Log("<slider_agent> Game over! Out of lives.");
-                AddReward(-1.0f);
-                EndEpisode();
-            } else {
-                // reset ball & slider position; restart play
-                Debug.Log("<slider_agent> Continuing level with " + lives.ToString() + " lives.");
-                LevelBuilder.StartingPositions();
-                LevelBuilder.StartPlay();
-            }
+            lives--;
+            float ball_miss_penalty = -1.0f;
+            AddReward(ball_miss_penalty);
+            // reset ball & slider position; restart play
+            LevelBuilder.StartingPositions();
+            LevelBuilder.StartPlay();
+
         }
         
         // if level is cleared of bricks
         if ( bricks_remaining == 0)
         {
-            Debug.Log("<slider_agent> Game over! Level is clear.");
-            AddReward(1.0f); // flat reward for beating level
-            for (int i=1; i < lives; ++i) {
-                // bonus reward for beating level with more than 1 life remaining
-                AddReward(1.0f);
+            float reward_for_clearing_level = 1.0f;
+            float reward_per_life = 1.0f;
+            for (int i=0; i < lives; ++i)
+            {
+                AddReward(reward_per_life);
             }
+            Debug.Log("<slider_agent> Game over! Level is clear.");
+            AddReward(reward_for_clearing_level); // flat reward for beating level
             EndEpisode();
         }
     }
