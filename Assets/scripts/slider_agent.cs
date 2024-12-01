@@ -10,7 +10,7 @@ public class slider_agent : Agent
     public GameObject bottom_border;
     public Transform target_ball;
     public LevelBuilder LevelBuilder;
-    public ball_collision collided_ball;
+    public ml_ball_collision collided_ball;
 
     void Start()
     {
