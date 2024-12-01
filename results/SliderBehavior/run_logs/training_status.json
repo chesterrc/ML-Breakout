@@ -1,0 +1,29 @@
+{
+    "SliderBehavior": {
+        "checkpoints": [
+            {
+                "steps": 20008,
+                "file_path": "results\\SliderBehavior\\SliderBehavior\\SliderBehavior-20008.onnx",
+                "reward": -3.5588235294117645,
+                "creation_time": 1732743973.8041868,
+                "auxillary_file_paths": [
+                    "results\\SliderBehavior\\SliderBehavior\\SliderBehavior-20008.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 20008,
+            "file_path": "results\\SliderBehavior\\SliderBehavior.onnx",
+            "reward": -3.5588235294117645,
+            "creation_time": 1732743973.8041868,
+            "auxillary_file_paths": [
+                "results\\SliderBehavior\\SliderBehavior\\SliderBehavior-20008.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "1.1.0",
+        "torch_version": "2.2.2+cu121"
+    }
+}

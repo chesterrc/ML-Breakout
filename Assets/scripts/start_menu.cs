@@ -29,5 +29,12 @@ public class start_menu : MonoBehaviour
         Debug.Log("Starting vs CPU mode");
     }
 
+    public void start_mach()
+    {
+        //starts machine game
+        SceneManager.LoadScene("ml_training_scene");
+        Debug.Log("Starting machine mode");
+    }
+
 
 }

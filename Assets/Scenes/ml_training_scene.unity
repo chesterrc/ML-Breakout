@@ -554,6 +554,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e3cdc30a42600b4dbfb5a9f7165d730, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  LevelBuilder: {fileID: 0}
   score_text: {fileID: 1266610559}
 --- !u!114 &824182927
 MonoBehaviour:
@@ -1347,7 +1348,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 105
+    VectorObservationSize: 10
     NumStackedVectorObservations: 1
     m_ActionSpec:
       m_NumContinuousActions: 1

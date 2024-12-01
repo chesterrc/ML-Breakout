@@ -7,12 +7,10 @@ public class slider_agent : Agent
 {
     public static slider_agent Instance { get; private set; }
     private Rigidbody2D slider;
-
-    
+    public GameObject bottom_border;
+    public Transform target_ball;
     public LevelBuilder LevelBuilder;
     public ball_collision collided_ball;
-    public int lives_per_game = 5;
-    private int lives;
 
     void Start()
     {
@@ -26,29 +24,32 @@ public class slider_agent : Agent
         Debug.Log("<slider_agent> New Episode Starting");
 
         // start new game:
-        lives = lives_per_game;            // reset lives to max lives
         LevelBuilder.Build();              // create bricks
         LevelBuilder.StartingPositions();  // ball & slider to start pos
         LevelBuilder.StartPlay();          // begin play
     }
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("ball"))
+        {
+            Debug.Log("Collision of ball to slider adding reward");
+            AddReward(1.0f);
+        }
+    }
     // The Agent class calls this function before it makes a decision
     public override void CollectObservations(VectorSensor sensor)
     {
-        // observe slider (agent) position
-        sensor.AddObservation(this.transform.localPosition);
+        // observe slider (agent) position's collider frame
+        BoxCollider2D slider_frame = this.GetComponent<BoxCollider2D>();
+        sensor.AddObservation(this.transform.localPosition.x + slider_frame.bounds.size.x / 2);
+        sensor.AddObservation(this.transform.localPosition.x - slider_frame.bounds.size.x / 2);
 
         // observe ball position
         sensor.AddObservation(target_ball.localPosition);
 
         // observe ball velocity:
         sensor.AddObservation(target_ball.GetComponent<Rigidbody2D>().velocity);
-
-        // observe ball angular velocity
-        sensor.AddObservation(target_ball.GetComponent<Rigidbody2D>().angularVelocity);
-
-        // observe which bricks are broken and which aren't
-        sensor.AddObservation(LevelBuilder.brick_status_map);
     }
 
     // This is called after CollectObservations
@@ -69,54 +70,25 @@ public class slider_agent : Agent
             );
         }
 
-        // Rewards //
-
-        // continuous survival reward; decreases as bricks are destroyed
-        float reward_per_time = (0.01f / LevelBuilder.TotalBricks) * Time.deltaTime * LevelBuilder.brick_count;
-        AddReward(reward_per_time);
-
-        // if brick broke by ball
-        if( collided_ball.ball_collided )
-        {
-            Debug.Log("<slider_agent> ball broke brick; " + LevelBuilder.brick_count.ToString() + " more to go");
-            collided_ball.ball_collided = false;            
-            AddReward(0.1f);
-            AddReward(1.0f/LevelBuilder.brick_count);
-        }
-
-        // if slider hits the ball
-        if(collided_ball.ball_hit_slider){
-            Debug.Log("<slider_agent> Slider hit ball.");
-            collided_ball.ball_hit_slider = false;
-            AddReward(0.8f);
-        }
+        // // Rewards /
+        // if (Mathf.Abs(target_ball.localPosition.x) - 0.2 <= Mathf.Abs(this.transform.localPosition.x) &&
+        //     Mathf.Abs(this.transform.localPosition.x) <= Mathf.Abs(target_ball.localPosition.x) + 0.2)
+        // {
+        //     AddReward(0.1f);
+        // }
 
         // if slider misses ball
         if ( target_ball.position.y <= bottom_border.transform.position.y)
         {
-            AddReward(-1.0f);
-            lives -= 1;
-            if (lives == 0) {
-                Debug.Log("<slider_agent> Game over! Out of lives.");
-                AddReward(-1.0f);
-                EndEpisode();
-            } else {
-                // reset ball & slider position; restart play
-                Debug.Log("<slider_agent> Continuing level with " + lives.ToString() + " lives.");
-                LevelBuilder.StartingPositions();
-                LevelBuilder.StartPlay();
-            }
+            AddReward(-5f);
+            EndEpisode();
         }
         
         // if level is cleared of bricks
         if ( LevelBuilder.brick_count == 0)
         {
             Debug.Log("<slider_agent> Game over! Level is clear.");
-            AddReward(1.0f); // flat reward for beating level
-            for (int i=1; i < lives; ++i) {
-                // bonus reward for beating level with more than 1 life remaining
-                AddReward(1.0f);
-            }
+            AddReward(5.0f); // flat reward for beating level
             EndEpisode();
         }
     }
@@ -145,5 +117,11 @@ public class slider_agent : Agent
                 slider.transform.position.z
             );
         }
+    }
+
+    public void BrickBroken()
+    {
+        Debug.Log("Adding reward to broken brick");
+        AddReward(1.0f);
     }
 }

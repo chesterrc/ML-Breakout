@@ -7,6 +7,7 @@ public class ball_collision : MonoBehaviour
     private Rigidbody2D ball_col;
     public GameController game_controller;
     public LevelBuilder LevelBuilder;
+    public slider_agent slider_agent;
     public bool ball_collided = false;
     public bool ball_hit_slider = false;
     
@@ -40,11 +41,11 @@ public class ball_collision : MonoBehaviour
         }
         else if (collision.gameObject.CompareTag("brick"))
         {
+            slider_agent.BrickBroken();
             LevelBuilder.brick_count--;
             Debug.Log("<ball_collision.cs> hit a brick; " + LevelBuilder.brick_count.ToString() + " more to go");
             ball_collided = true;
             //Get the difference in x to see if we hit the left or right side
-
 
         }
         else if (collision.gameObject.CompareTag("bottom"))
