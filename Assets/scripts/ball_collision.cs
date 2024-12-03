@@ -5,10 +5,10 @@ using UnityEngine;
 public class ball_collision : MonoBehaviour
 {
     private Rigidbody2D ball_col;
-    // Start is called before the first frame update
     public GameController game_controller;
     public LevelBuilder LevelBuilder;
     public bool ball_collided = false;
+    public bool ball_hit_slider = false;
     
     void Start()
     {
@@ -18,9 +18,11 @@ public class ball_collision : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log("ball collision");
+        // Debug.Log("ball collision");
         if ( collision.gameObject.CompareTag("slider") )
         {
+            ball_hit_slider = true;
+             Debug.Log("<ball_collision.cs> ball hit the slider");
             //Get the difference in x to see if we hit the left or right side
             float halfWidth = collision.collider.bounds.size.x;
             float x = (transform.position.x - collision.transform.position.x) / halfWidth;
@@ -38,16 +40,15 @@ public class ball_collision : MonoBehaviour
         }
         else if (collision.gameObject.CompareTag("brick"))
         {
-            Debug.Log("hit a brick");
             LevelBuilder.brick_count--;
+            Debug.Log("<ball_collision.cs> hit a brick; " + LevelBuilder.brick_count.ToString() + " more to go");
             ball_collided = true;
             //Get the difference in x to see if we hit the left or right side
-
 
         }
         else if (collision.gameObject.CompareTag("bottom"))
         {
-            Debug.Log("Missed slider.");
+            // Debug.Log("Missed slider.");
             game_controller.PlayerMissedBall();
         }
     }
