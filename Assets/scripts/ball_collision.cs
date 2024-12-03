@@ -50,6 +50,7 @@ public class ball_collision : MonoBehaviour
             }
             
             Debug.Log(brick_collider.size.x);
+            Debug.Log("<ball_collision> brick_count value: " + LevelBuilder.brick_count);
 
 
             Vector2 direction = new(3 * x, 1);

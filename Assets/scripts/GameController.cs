@@ -1,10 +1,12 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.IO;
+using System.Collections;
+using System.Collections.Generic;
 
 public class GameController : MonoBehaviour
 {
     public static GameController Instance { get; private set; }
-
     public ScoreKeeper ScoreKeeper;
     public LifeTracker LifeTracker;
     public LevelBuilder LevelBuilder;
@@ -14,6 +16,8 @@ public class GameController : MonoBehaviour
     private Rigidbody2D slider_rb;
     public Scene CurrentLevel;
     public bool PlayStarted { get; private set; } = false;
+    public string[] names = new string [10];
+    public int[] scores = new int [10];
 
 
     void Start()
@@ -21,6 +25,10 @@ public class GameController : MonoBehaviour
         CurrentLevel = SceneManager.GetActiveScene();
         StartGame(); 
         slider_rb = Slider.GetComponent<Rigidbody2D>();
+
+        //on start, load existing high scores
+        LoadScores();
+
     }
 
     public void Update()
@@ -108,8 +116,15 @@ public class GameController : MonoBehaviour
 
     void GameOver()
     {
+        //check score, update files if necessary
+        if (ScoreKeeper.Score >= scores[9]) 
+        {
+            AddHighScore();
+        }
+
         SceneManager.LoadScene(0);
         SaveLS.InitGame();
+        
         
     }
 
@@ -127,7 +142,31 @@ public class GameController : MonoBehaviour
         
     }
 
-    
+    void LoadScores()
+    {
 
+        string scoresLoc = Application.dataPath + "/scores.txt";
+        string namesLoc = Application.dataPath + "/names.txt";
+        StreamReader readNames = new StreamReader(namesLoc);
+        StreamReader readScores = new StreamReader(scoresLoc);
+        for (int x = 0; x < 10; ++x) 
+        {
+            string tmpName = readNames.ReadLine();
+            Debug.Log("tmpName: " + tmpName);
+            string tmpScore = readScores.ReadLine();
+            int tmpScoreInt = System.Int16.Parse(tmpScore);
+            Debug.Log("tmpScoreInt: " + tmpScoreInt);
+            names[x] = tmpName;
+            scores[x] = tmpScoreInt;
+        }
+
+        
+        
+    }
+    
+    void AddHighScore() 
+    {
+        
+    }
     
 }

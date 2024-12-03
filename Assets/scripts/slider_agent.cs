@@ -19,6 +19,8 @@ public class slider_agent : Agent
 
     public LevelBuilder LevelBuilder;
     public ball_collision collided_ball;
+    public float BricksProp;
+    public float distance_to_target;
 
     void Start()
     {
@@ -59,6 +61,7 @@ public class slider_agent : Agent
     // This is called after CollectObservations
     public override void OnActionReceived(ActionBuffers actions)
     {
+        
         Debug.Log("<slider_agent> OnActionReceived");
 
         //Actions, size = 1 (only moving in one axis)
@@ -76,12 +79,30 @@ public class slider_agent : Agent
         if( collided_ball.ball_collided )
         {
             Debug.Log("<slider_agent> ball broke brick");
+            Debug.Log("<slider_agent> SaveLS brick count: " + SaveLS.BricksRemaining);
             collided_ball.ball_collided = false;
-            AddReward(0.8f);
+            BricksProp = (96 - SaveLS.BricksRemaining) / 96;
+            SetReward(BricksProp);
         }
+        
         if( distance_to_target <= 1.0f )
         {
             AddReward(0.1f);
+        }
+
+        if (distance_to_target <= 0.75) 
+        {
+            AddReward(0.25f);
+        }
+
+        if (distance_to_target <= 0.5) 
+        {
+            AddReward(0.5f);
+        }
+
+        if (distance_to_target <= 0.25) 
+        {
+            AddReward(0.75f);
         }
         
         if( target_ball.position.y <= bottom_border.transform.position.y)
@@ -91,7 +112,9 @@ public class slider_agent : Agent
             EndEpisode();
         }
 
-        if ( LevelBuilder.brick_count == 0)
+        
+
+        if ( SaveLS.BricksRemaining == 0)
         {
             AddReward(1.0f);
             EndEpisode();

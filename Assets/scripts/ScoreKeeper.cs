@@ -14,6 +14,7 @@ public class ScoreKeeper : MonoBehaviour
         Score = LoadScore();
         BrickCount = 0;
         UpdateScoreText();
+        SaveLS.BricksRemaining = 96;
         
     }
 
@@ -35,12 +36,15 @@ public class ScoreKeeper : MonoBehaviour
         Debug.Log("Bricks destroyed: " + BrickCount);
         SaveLS.SavedScore = Score;
         Debug.Log("<ScoreKeeper> SaveLS.SavedScore updated to: " + Score);
+        SaveLS.BricksRemaining--;
+        Debug.Log("<ScoreKeeper> SaveLS.BricksRemaining updated to: " + SaveLS.BricksRemaining);
         
     }
 
-    public  void resetBrickCount() 
+    public void resetBrickCount() 
     {
         BrickCount = 0;
+        
     }
 
     public int GetScore()
