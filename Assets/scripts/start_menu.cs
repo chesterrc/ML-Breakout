@@ -1,8 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEditor.SceneManagement;
 
 public class start_menu : MonoBehaviour
 {
@@ -29,11 +26,12 @@ public class start_menu : MonoBehaviour
         Debug.Log("Starting vs CPU mode");
     }
 
-    public void return_to_menu()
+    public void start_mach()
     {
-        //returns player to main menu
-        SceneManager.LoadScene("menu");
-        Debug.Log("Returning to menu");
+        //starts machine game
+        SceneManager.LoadScene("ml_training_scene");
+        Debug.Log("Starting machine mode");
     }
+
 
 }

@@ -99,7 +99,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.002670765, y: 0.00059354305}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -110,7 +110,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.025, y: 0.45}
+  m_Size: {x: 0.9875355, y: 0.2798196}
   m_EdgeRadius: 0
 --- !u!114 &6380427572190839523
 MonoBehaviour:
@@ -127,3 +127,4 @@ MonoBehaviour:
   game_obj: {fileID: 8538666254444121862}
   ScoreKeeper: {fileID: 0}
   points_value: 0
+  brick_collider: {fileID: 0}
