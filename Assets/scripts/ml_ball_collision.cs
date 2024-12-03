@@ -23,7 +23,7 @@ public class ml_ball_collision : MonoBehaviour
         if ( collision.gameObject.CompareTag("slider") )
         {
             ball_hit_slider = true;
-             Debug.Log("<ball_collision.cs> ball hit the slider");
+            Debug.Log("<ball_collision.cs> ball hit the slider");
             //Get the difference in x to see if we hit the left or right side
             float halfWidth = collision.collider.bounds.size.x;
             float x = (transform.position.x - collision.transform.position.x) / halfWidth;
@@ -43,7 +43,7 @@ public class ml_ball_collision : MonoBehaviour
         {
             slider_agent.BrickBroken();
             LevelBuilder.brick_count--;
-            Debug.Log("<ball_collision.cs> hit a brick; " + LevelBuilder.brick_count.ToString() + " more to go");
+            // Debug.Log("<ball_collision.cs> hit a brick; " + LevelBuilder.brick_count.ToString() + " more to go");
             ball_collided = true;
             //Get the difference in x to see if we hit the left or right side
 

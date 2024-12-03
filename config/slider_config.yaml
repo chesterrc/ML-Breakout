@@ -4,7 +4,7 @@ behaviors:
     hyperparameters:
       batch_size: 1000
       buffer_size: 3000
-      learning_rate: 6.0e-4
+      learning_rate: 8.0e-4
       beta: 5.0e-3
       epsilon: 0.6
       lambd: 0.99
@@ -20,6 +20,6 @@ behaviors:
       extrinsic:
         gamma: 0.99
         strength: 1.0
-    max_steps: 20000
+    max_steps: 80000
     time_horizon: 64
     summary_freq: 10000
