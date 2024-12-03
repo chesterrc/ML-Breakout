@@ -635,13 +635,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BrickHandler: {fileID: 1129836805}
-  num_cols: 12
-  num_rows: 8
   brick_x_space: 1.05
   brick_y_space: 0.6
   brick_x_start: -5.8
   brick_y_start: 0
-  TotalBricks: 0
   Ball: {fileID: 2091631350}
   ball_x_start: 0
   ball_y_start: -4
@@ -1517,4 +1514,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   game_controller: {fileID: 1129836808}
   LevelBuilder: {fileID: 1129836806}
+  slider_agent: {fileID: 0}
   ball_collided: 0
+  ball_hit_slider: 0
