@@ -3,6 +3,8 @@ using UnityEngine.SceneManagement;
 
 public class start_menu : MonoBehaviour
 {
+    public EndingSceneGameController end_scene_game_controller;
+
     public void exit()
     {
         //for exit button
@@ -31,6 +33,13 @@ public class start_menu : MonoBehaviour
         //starts machine game
         SceneManager.LoadScene("ml_training_scene");
         Debug.Log("Starting machine mode");
+    }
+
+    public void to_menu()
+    {
+        //go back to main menu
+        SceneManager.LoadScene("menu");
+        end_scene_game_controller.SaveData(0, 5);
     }
 
 

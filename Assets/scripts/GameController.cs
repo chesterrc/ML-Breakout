@@ -111,8 +111,21 @@ public class GameController : MonoBehaviour
 
     void GameOver()
     {
-        SceneManager.LoadScene(0);
-        SaveData(0, 5);
+        //loads the end scene
+        Debug.Log("Ending Scene");
+        tmpScore = ScoreKeeper.GetScore();
+        tmpLives = LifeTracker.GetLives();
+        SaveData(tmpScore, tmpLives);
+        SceneManager.LoadScene("ending_scene");
+        Debug.Log("Updating lives and score");
+
+        currentLives = LoadLives();
+        Debug.Log(currentLives);
+        LifeTracker.UpdateLives(currentLives);
+        currentScore = LoadScore();
+        Debug.Log(currentScore);
+        ScoreKeeper.UpdateScore(currentScore);
+
         
     }
 
@@ -137,7 +150,7 @@ public class GameController : MonoBehaviour
         
     }
 
-    public static void SaveData(int score, int lives)
+    public void SaveData(int score, int lives)
     {
         //saves score, lives to file
         PlayerPrefs.SetInt(ScoreKey, score);
