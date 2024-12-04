@@ -28,6 +28,7 @@ public class ScoreKeeper : MonoBehaviour
 
     public void UpdateScoreText()
     {
+        Debug.Log("Updating Score " + Score);
         score_text.text = "Score: " + Score.ToString("D6");
     }
 
