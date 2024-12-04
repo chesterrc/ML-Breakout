@@ -800,6 +800,128 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1266610557}
   m_CullTransparentMesh: 1
+--- !u!1 &1286176286
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1286176292}
+  - component: {fileID: 1286176291}
+  - component: {fileID: 1286176290}
+  - component: {fileID: 1286176289}
+  - component: {fileID: 1286176288}
+  - component: {fileID: 1286176287}
+  m_Layer: 0
+  m_Name: GameController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1286176287
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1286176286}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd7dda5ce45dde040aa49e4a03515656, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BrickHandler: {fileID: 1286176290}
+  brick_x_space: 1.05
+  brick_y_space: 0.6
+  brick_x_start: -5.8
+  brick_y_start: 0
+  Ball: {fileID: 0}
+  ball_x_start: 0
+  ball_y_start: -4
+  Slider: {fileID: 0}
+  slider_x_start: 0
+  slider_y_start: -6
+  slider_left_bound: -5.5
+  slider_right_bound: 5.5
+  brick_count: 0
+--- !u!114 &1286176288
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1286176286}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c47b3f8cd1881544f9b942b8167fcb10, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lives_text: {fileID: 0}
+--- !u!114 &1286176289
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1286176286}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e3cdc30a42600b4dbfb5a9f7165d730, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LevelBuilder: {fileID: 0}
+  score_text: {fileID: 0}
+--- !u!114 &1286176290
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1286176286}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9218a15b67f9edf4e9af8b9ed513e615, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Brick: {fileID: 8538666254444121862, guid: 81aa664440599074a94913ba763d821e, type: 3}
+  ScoreKeeper: {fileID: 1286176289}
+--- !u!114 &1286176291
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1286176286}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fafd1de3f87c0ce409b6a39029c43130, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ScoreKeeper: {fileID: 1286176289}
+  LifeTracker: {fileID: 1286176288}
+  LevelBuilder: {fileID: 1286176287}
+  BrickHandler: {fileID: 1286176290}
+  Slider: {fileID: 0}
+  CurrentLevel:
+    m_Handle: 0
+--- !u!4 &1286176292
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1286176286}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.053553164, y: -0.32897308, z: -9.959446}
+  m_LocalScale: {x: 1, y: 2, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1387349232
 GameObject:
   m_ObjectHideFlags: 0
