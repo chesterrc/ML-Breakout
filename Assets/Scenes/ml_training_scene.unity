@@ -960,7 +960,7 @@ GameObject:
   - component: {fileID: 1468777476}
   - component: {fileID: 1468777475}
   - component: {fileID: 1468777474}
-  - component: {fileID: 1468777473}
+  - component: {fileID: 1468777478}
   m_Layer: 0
   m_Name: ball (1)
   m_TagString: ball
@@ -968,22 +968,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1468777473
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1468777472}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9d53bbf78f30948419098e713dbdb874, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  game_controller: {fileID: 0}
-  LevelBuilder: {fileID: 824182924}
-  ball_collided: 0
-  ball_hit_slider: 0
 --- !u!58 &1468777474
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -1088,6 +1072,23 @@ Transform:
   m_Father: {fileID: 925860209}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1468777478
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1468777472}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b0276e5160460a4bbef93148dae3411, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  game_controller: {fileID: 0}
+  LevelBuilder: {fileID: 824182924}
+  slider_agent: {fileID: 1807889698}
+  ball_collided: 0
+  ball_hit_slider: 0
 --- !u!1 &1703261812
 GameObject:
   m_ObjectHideFlags: 0
@@ -1348,7 +1349,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 10
+    VectorObservationSize: 12
     NumStackedVectorObservations: 1
     m_ActionSpec:
       m_NumContinuousActions: 1
@@ -1357,7 +1358,7 @@ MonoBehaviour:
     VectorActionDescriptions: []
     VectorActionSpaceType: 0
     hasUpgradedBrainParametersWithActionSpec: 1
-  m_Model: {fileID: 0}
+  m_Model: {fileID: 5022602860645237092, guid: 58a40a6da1f833b48b5c4f0d209f1b43, type: 3}
   m_InferenceDevice: 1
   m_BehaviorType: 0
   m_BehaviorName: SliderBehavior
@@ -1382,9 +1383,11 @@ MonoBehaviour:
   hasUpgradedFromAgentParameters: 1
   MaxStep: 0
   bottom_border: {fileID: 864837977}
+  left_border: {fileID: 381122859}
+  right_border: {fileID: 1703261812}
   target_ball: {fileID: 1468777477}
   LevelBuilder: {fileID: 824182924}
-  collided_ball: {fileID: 1468777473}
+  collided_ball: {fileID: 1468777478}
 --- !u!114 &1807889699
 MonoBehaviour:
   m_ObjectHideFlags: 0

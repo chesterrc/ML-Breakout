@@ -8,6 +8,8 @@ public class slider_agent : Agent
     public static slider_agent Instance { get; private set; }
     private Rigidbody2D slider;
     public GameObject bottom_border;
+    public GameObject left_border;
+    public GameObject right_border;
     public Transform target_ball;
     public LevelBuilder LevelBuilder;
     public ml_ball_collision collided_ball;
@@ -29,27 +31,30 @@ public class slider_agent : Agent
         LevelBuilder.StartPlay();          // begin play
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("ball"))
-        {
-            Debug.Log("Collision of ball to slider adding reward");
-            AddReward(1.0f);
-        }
-    }
     // The Agent class calls this function before it makes a decision
     public override void CollectObservations(VectorSensor sensor)
     {
         // observe slider (agent) position's collider frame
         BoxCollider2D slider_frame = this.GetComponent<BoxCollider2D>();
-        sensor.AddObservation(this.transform.localPosition.x + slider_frame.bounds.size.x / 2);
-        sensor.AddObservation(this.transform.localPosition.x - slider_frame.bounds.size.x / 2);
+        float left_border_position = left_border.transform.localPosition.x;
+        float right_border_position = right_border.transform.localPosition.x;
+        sensor.AddObservation(right_border_position - (this.transform.localPosition.x + slider_frame.bounds.size.x / 2));
+        sensor.AddObservation(left_border_position - (this.transform.localPosition.x - slider_frame.bounds.size.x / 2));
+        sensor.AddObservation(this.transform.localPosition.x + slider_frame.bounds.size.x / 5);
+        sensor.AddObservation(this.transform.localPosition.x - slider_frame.bounds.size.x / 5);
 
         // observe ball position
         sensor.AddObservation(target_ball.localPosition);
+        sensor.AddObservation(target_ball.localPosition.x - this.transform.localPosition.x);
+        sensor.AddObservation(Vector2.Distance(target_ball.localPosition, this.transform.localPosition));
 
         // observe ball velocity:
-        sensor.AddObservation(target_ball.GetComponent<Rigidbody2D>().velocity);
+        sensor.AddObservation(target_ball.GetComponent<Rigidbody2D>().velocity.x);
+        sensor.AddObservation(target_ball.GetComponent<Rigidbody2D>().velocity.y);
+
+        //observe walls
+        sensor.AddObservation(left_border);
+        sensor.AddObservation(right_border);
     }
 
     // This is called after CollectObservations
@@ -70,17 +75,20 @@ public class slider_agent : Agent
             );
         }
 
-        // // Rewards /
-        // if (Mathf.Abs(target_ball.localPosition.x) - 0.2 <= Mathf.Abs(this.transform.localPosition.x) &&
-        //     Mathf.Abs(this.transform.localPosition.x) <= Mathf.Abs(target_ball.localPosition.x) + 0.2)
-        // {
-        //     AddReward(0.1f);
-        // }
+        // Debug.Log("ball " + target_ball.localPosition.x + " paddle " + this.transform.localPosition.x);
+
+        // Rewards /
+        if (Mathf.Abs(target_ball.localPosition.x) - 0.05 <= Mathf.Abs(this.transform.localPosition.x) &&
+            Mathf.Abs(this.transform.localPosition.x) <= Mathf.Abs(target_ball.localPosition.x) + 0.05)
+        {
+            Debug.Log("rewarded for being close to ball");
+            this.AddReward(0.001f);
+        }
 
         // if slider misses ball
         if ( target_ball.position.y <= bottom_border.transform.position.y)
         {
-            AddReward(-5f);
+            this.AddReward(-5f);
             EndEpisode();
         }
         
@@ -88,7 +96,7 @@ public class slider_agent : Agent
         if ( LevelBuilder.brick_count == 0)
         {
             Debug.Log("<slider_agent> Game over! Level is clear.");
-            AddReward(5.0f); // flat reward for beating level
+            this.AddReward(5.0f); // flat reward for beating level
             EndEpisode();
         }
     }
@@ -118,10 +126,18 @@ public class slider_agent : Agent
             );
         }
     }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("ball"))
+        {
+            Debug.Log("Collision of ball to slider adding reward");
+            this.AddReward(0.01f);
+        }
+    }
 
     public void BrickBroken()
     {
         Debug.Log("Adding reward to broken brick");
-        AddReward(1.0f);
+        this.AddReward(1f);
     }
 }
