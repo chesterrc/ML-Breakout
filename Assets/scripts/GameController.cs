@@ -166,7 +166,13 @@ public class GameController : MonoBehaviour
     
     void AddHighScore() 
     {
-        
+        for (int i = 0; i < 10; ++i) 
+        {
+            if (ScoreKeeper.Score >= scores[i])
+            {
+                //change scores and names here
+            }
+        }
     }
     
 }
